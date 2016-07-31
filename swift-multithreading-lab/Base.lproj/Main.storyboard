@@ -17,9 +17,20 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="flatiron" translatesAutoresizingMaskIntoConstraints="NO" id="Ho0-vj-UYp">
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="s7D-Tr-XvA">
                                 <rect key="frame" x="0.0" y="20" width="600" height="580"/>
-                            </imageView>
+                                <subviews>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="flatiron" translatesAutoresizingMaskIntoConstraints="NO" id="Ho0-vj-UYp">
+                                        <rect key="frame" x="0.0" y="0.0" width="7464" height="3934"/>
+                                    </imageView>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstItem="Ho0-vj-UYp" firstAttribute="bottom" secondItem="s7D-Tr-XvA" secondAttribute="bottom" id="8Kd-zf-ai7"/>
+                                    <constraint firstItem="Ho0-vj-UYp" firstAttribute="trailing" secondItem="s7D-Tr-XvA" secondAttribute="trailing" id="Dwl-e2-0fF"/>
+                                    <constraint firstItem="Ho0-vj-UYp" firstAttribute="leading" secondItem="s7D-Tr-XvA" secondAttribute="leading" id="G7X-1G-2Mm"/>
+                                    <constraint firstItem="Ho0-vj-UYp" firstAttribute="top" secondItem="s7D-Tr-XvA" secondAttribute="top" id="WBH-nu-y9b"/>
+                                </constraints>
+                            </scrollView>
                             <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="fMg-2k-t9H">
                                 <rect key="frame" x="282" y="282" width="37" height="37"/>
                                 <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
@@ -27,12 +38,12 @@
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="Ho0-vj-UYp" firstAttribute="top" secondItem="iBM-sI-oZs" secondAttribute="bottom" id="3Ua-Xo-hhI"/>
-                            <constraint firstItem="SLJ-fL-fQb" firstAttribute="top" secondItem="Ho0-vj-UYp" secondAttribute="bottom" id="7ag-Uc-JFE"/>
-                            <constraint firstItem="Ho0-vj-UYp" firstAttribute="leading" secondItem="enw-Rg-vdU" secondAttribute="leading" id="KGr-Kh-nWG"/>
-                            <constraint firstAttribute="trailing" secondItem="Ho0-vj-UYp" secondAttribute="trailing" id="MN2-db-jLJ"/>
+                            <constraint firstItem="s7D-Tr-XvA" firstAttribute="bottom" secondItem="SLJ-fL-fQb" secondAttribute="top" id="CG9-it-Hio"/>
                             <constraint firstItem="fMg-2k-t9H" firstAttribute="centerY" secondItem="enw-Rg-vdU" secondAttribute="centerY" id="SWb-ts-oVe"/>
                             <constraint firstItem="fMg-2k-t9H" firstAttribute="centerX" secondItem="enw-Rg-vdU" secondAttribute="centerX" id="WLc-W4-HLE"/>
+                            <constraint firstItem="s7D-Tr-XvA" firstAttribute="trailing" secondItem="enw-Rg-vdU" secondAttribute="trailing" id="huS-9a-a3E"/>
+                            <constraint firstItem="s7D-Tr-XvA" firstAttribute="top" secondItem="iBM-sI-oZs" secondAttribute="bottom" id="l38-F5-7eR"/>
+                            <constraint firstItem="s7D-Tr-XvA" firstAttribute="leading" secondItem="enw-Rg-vdU" secondAttribute="leading" id="wiL-yz-hW8"/>
                         </constraints>
                     </view>
                     <connections>
