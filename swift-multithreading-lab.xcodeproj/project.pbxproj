@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		1B7E70191D4955B800DC8364 /* PhotoCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B7E70181D4955B800DC8364 /* PhotoCollectionViewController.swift */; };
 		1B7E701B1D4A414800DC8364 /* ImageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B7E701A1D4A414800DC8364 /* ImageViewController.swift */; };
 		1BD309A81D4654E300A76984 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BD309A71D4654E300A76984 /* AppDelegate.swift */; };
 		1BD309AD1D4654E300A76984 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1BD309AB1D4654E300A76984 /* Main.storyboard */; };
@@ -40,7 +39,6 @@
 /* Begin PBXFileReference section */
 		0F7E74948B785E2C42373DCC /* Pods-swift-multithreading-labTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-swift-multithreading-labTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-swift-multithreading-labTests/Pods-swift-multithreading-labTests.release.xcconfig"; sourceTree = "<group>"; };
 		1202FB3CA52C0B05A6616767 /* Pods_swift_multithreading_labUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_swift_multithreading_labUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		1B7E70181D4955B800DC8364 /* PhotoCollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotoCollectionViewController.swift; sourceTree = "<group>"; };
 		1B7E701A1D4A414800DC8364 /* ImageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageViewController.swift; sourceTree = "<group>"; };
 		1BD309A41D4654E300A76984 /* swift-multithreading-lab.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "swift-multithreading-lab.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		1BD309A71D4654E300A76984 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -121,7 +119,6 @@
 				1BD309AE1D4654E300A76984 /* Assets.xcassets */,
 				1BD309B01D4654E300A76984 /* LaunchScreen.storyboard */,
 				1BD309B31D4654E300A76984 /* Info.plist */,
-				1B7E70181D4955B800DC8364 /* PhotoCollectionViewController.swift */,
 				1B7E701A1D4A414800DC8364 /* ImageViewController.swift */,
 			);
 			path = "swift-multithreading-lab";
@@ -430,7 +427,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				1B7E70191D4955B800DC8364 /* PhotoCollectionViewController.swift in Sources */,
 				1B7E701B1D4A414800DC8364 /* ImageViewController.swift in Sources */,
 				1BD309A81D4654E300A76984 /* AppDelegate.swift in Sources */,
 			);
