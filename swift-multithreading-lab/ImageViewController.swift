@@ -26,7 +26,7 @@ class ImageViewController : UIViewController, UIScrollViewDelegate {
         view.addSubview(activityIndicator)
     }
     
-    @IBAction func antiqueButton(sender: AnyObject) {
+    @IBAction func antiqueButtonTapped(sender: AnyObject) {
         
         activityIndicator.startAnimating()
 
