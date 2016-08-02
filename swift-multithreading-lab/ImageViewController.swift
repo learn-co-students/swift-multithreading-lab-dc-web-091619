@@ -23,10 +23,16 @@ class ImageViewController : UIViewController {
         activityIndicator.startAnimating()
         
         // Create the image and tell the activity indicator to stop after the image has been created
-        dispatch_async(dispatch_get_global_queue(QOS_CLASS_USER_INITIATED, 0)) { [unowned self] in
+        
+        let userQueue = NSOperationQueue()
+        userQueue.qualityOfService = .UserInitiated
+        userQueue.addOperationWithBlock {
             self.createImage { (result) in
-                dispatch_async(dispatch_get_main_queue()) { [unowned self] in
-                    if result { self.activityIndicator.stopAnimating(); print("Stopping activity indicator") }
+                NSOperationQueue.mainQueue().addOperationWithBlock {
+                    if result {
+                        self.activityIndicator.stopAnimating()
+                        print("Stopping activity indicator")
+                    }
                 }
             }
         }
@@ -61,10 +67,12 @@ class ImageViewController : UIViewController {
                 let result = UIImage(CGImage: output)
                 print("CIExposureAdjust applied")
 
-                dispatch_async(dispatch_get_main_queue()) { [unowned self] in
+                
+                NSOperationQueue.mainQueue().addOperationWithBlock({
                     print("Setting the new image")
                     self.imageView?.image = result
-                }
+
+                })
                 
                 print("Returning completion from createImage")
                 completion(true)
