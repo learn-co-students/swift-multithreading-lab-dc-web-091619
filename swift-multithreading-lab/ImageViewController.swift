@@ -17,13 +17,11 @@ class ImageViewController : UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        // Start the activity indicator
+    }
+    
+    @IBAction func ageItButton(sender: AnyObject) {
         print("Starting activity indicator")
         activityIndicator.startAnimating()
-        
-        // Create the image and tell the activity indicator to stop after the image has been created
-        
         let userQueue = NSOperationQueue()
         userQueue.qualityOfService = .UserInitiated
         userQueue.addOperationWithBlock {
@@ -78,6 +76,5 @@ class ImageViewController : UIViewController {
                 completion(true)
             }
         }
-        
     }
 }

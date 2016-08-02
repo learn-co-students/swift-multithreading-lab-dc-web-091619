@@ -1,5 +1,5 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="GqE-4z-MaU">
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="16A254g" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="GqE-4z-MaU">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
@@ -17,8 +17,20 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
+                            <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="IXv-Q3-9UC">
+                                <rect key="frame" x="0.0" y="20" width="600" height="44"/>
+                                <items>
+                                    <navigationItem title="//❤️" id="eAi-I5-UqH">
+                                        <barButtonItem key="rightBarButtonItem" title="Age it!" id="NWa-6B-jpH">
+                                            <connections>
+                                                <action selector="ageItButton:" destination="GqE-4z-MaU" id="IQr-II-fnd"/>
+                                            </connections>
+                                        </barButtonItem>
+                                    </navigationItem>
+                                </items>
+                            </navigationBar>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="s7D-Tr-XvA">
-                                <rect key="frame" x="0.0" y="20" width="600" height="580"/>
+                                <rect key="frame" x="0.0" y="64" width="600" height="536"/>
                                 <subviews>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="flatiron" translatesAutoresizingMaskIntoConstraints="NO" id="Ho0-vj-UYp">
                                         <rect key="frame" x="0.0" y="0.0" width="7464" height="3934"/>
@@ -36,13 +48,15 @@
                                 <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                             </activityIndicatorView>
                         </subviews>
-                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstItem="s7D-Tr-XvA" firstAttribute="top" secondItem="IXv-Q3-9UC" secondAttribute="bottom" id="9sU-My-bVO"/>
                             <constraint firstItem="s7D-Tr-XvA" firstAttribute="bottom" secondItem="SLJ-fL-fQb" secondAttribute="top" id="CG9-it-Hio"/>
+                            <constraint firstItem="IXv-Q3-9UC" firstAttribute="top" secondItem="iBM-sI-oZs" secondAttribute="bottom" id="Co3-ci-Md8"/>
                             <constraint firstItem="fMg-2k-t9H" firstAttribute="centerY" secondItem="enw-Rg-vdU" secondAttribute="centerY" id="SWb-ts-oVe"/>
                             <constraint firstItem="fMg-2k-t9H" firstAttribute="centerX" secondItem="enw-Rg-vdU" secondAttribute="centerX" id="WLc-W4-HLE"/>
                             <constraint firstItem="s7D-Tr-XvA" firstAttribute="trailing" secondItem="enw-Rg-vdU" secondAttribute="trailing" id="huS-9a-a3E"/>
-                            <constraint firstItem="s7D-Tr-XvA" firstAttribute="top" secondItem="iBM-sI-oZs" secondAttribute="bottom" id="l38-F5-7eR"/>
+                            <constraint firstItem="IXv-Q3-9UC" firstAttribute="leading" secondItem="enw-Rg-vdU" secondAttribute="leading" id="mXw-DE-AdG"/>
+                            <constraint firstItem="IXv-Q3-9UC" firstAttribute="trailing" secondItem="enw-Rg-vdU" secondAttribute="trailing" id="una-mK-zaG"/>
                             <constraint firstItem="s7D-Tr-XvA" firstAttribute="leading" secondItem="enw-Rg-vdU" secondAttribute="leading" id="wiL-yz-hW8"/>
                         </constraints>
                     </view>
