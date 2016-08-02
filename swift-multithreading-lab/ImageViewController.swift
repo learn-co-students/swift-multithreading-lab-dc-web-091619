@@ -29,18 +29,21 @@ class ImageViewController : UIViewController, UIScrollViewDelegate {
     @IBAction func antiqueButton(sender: AnyObject) {
         print("Starting activity indicator")
         activityIndicator.startAnimating()
-        let userQueue = NSOperationQueue()
-        userQueue.qualityOfService = .UserInitiated
-        userQueue.addOperationWithBlock {
-            self.filterImage { (result) in
-                NSOperationQueue.mainQueue().addOperationWithBlock {
-                    if result {
-                        self.activityIndicator.stopAnimating()
-                        print("Stopping activity indicator")
-                    }
-                }
-            }
+        filterImage { (result) in
+            self.activityIndicator.stopAnimating()
         }
+//        let userQueue = NSOperationQueue()
+//        userQueue.qualityOfService = .UserInitiated
+//        userQueue.addOperationWithBlock {
+//            self.filterImage { (result) in
+//                NSOperationQueue.mainQueue().addOperationWithBlock {
+//                    if result {
+//                        self.activityIndicator.stopAnimating()
+//                        print("Stopping activity indicator")
+//                    }
+//                }
+//            }
+//        }
     }
     
     func filterImage(completion: (Bool) -> ()) {
@@ -76,11 +79,15 @@ class ImageViewController : UIViewController, UIScrollViewDelegate {
                 let finalResult = UIGraphicsGetImageFromCurrentImageContext()
                 UIGraphicsEndImageContext()
                 
-                NSOperationQueue.mainQueue().addOperationWithBlock({
-                    print("Setting final result")
-                    self.imageView?.image = finalResult
-                    completion(true)
-                })
+                print("Setting final result")
+                self.imageView?.image = finalResult
+                completion(true)
+                
+//                NSOperationQueue.mainQueue().addOperationWithBlock({
+//                    print("Setting final result")
+//                    self.imageView?.image = finalResult
+//                    completion(true)
+//                })
             }
         }
     }
