@@ -35,8 +35,8 @@ activityIndicator.startAnimating()  // Presents and starts the activity indicato
 activityIndicator.stopAnimating()   // Hides and stops the activity indicator
 ```
 
-* Add just the `startAnimating` line to your `viewDidLoad` and run your app. You should see a blue spinning activity indicator! We don't want the indicator to start as soon as the app opens, though. Let's move this start function call to the `antiqueButton` function.
-* Start the activity indicator visible when the `Antique!` button is tapped and stop it when the image is filtered.
+* Add just the `startAnimating` line to your `viewDidLoad` and run your app. You should see a blue spinning activity indicator! We don't want the indicator to start as soon as the app opens, though, and we don't want it to keep going after the image has been filtered. Let's move this start function call to the `antiqueButton` function ahead of the call to `filterImage`.
+* 
 
 ### Allow for user interaction during filtering
 
