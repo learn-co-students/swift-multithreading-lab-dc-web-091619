@@ -19,26 +19,32 @@ class ImageViewController : UIViewController, UIScrollViewDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupViews()
+        
+        activityIndicator = UIActivityIndicatorView(activityIndicatorStyle: .WhiteLarge)
+        activityIndicator.color = UIColor.cyanColor()
+        activityIndicator.center = view.center
+        view.addSubview(activityIndicator)
     }
     
     @IBAction func antiqueButton(sender: AnyObject) {
-        print("Starting activity indicator")
+        
         activityIndicator.startAnimating()
-        filterImage { (result) in
-            self.activityIndicator.stopAnimating()
-        }
-//        let userQueue = NSOperationQueue()
-//        userQueue.qualityOfService = .UserInitiated
-//        userQueue.addOperationWithBlock {
-//            self.filterImage { (result) in
-//                NSOperationQueue.mainQueue().addOperationWithBlock {
-//                    if result {
-//                        self.activityIndicator.stopAnimating()
-//                        print("Stopping activity indicator")
-//                    }
-//                }
-//            }
+        
+//        filterImage { (result) in
+//            result ? print("Image filtering complete") : print("Image filtering did not complete")
+//            self.activityIndicator.stopAnimating()
 //        }
+        
+        let userQueue = NSOperationQueue()
+        userQueue.qualityOfService = .UserInitiated
+        userQueue.addOperationWithBlock {
+            self.filterImage { (result) in
+                NSOperationQueue.mainQueue().addOperationWithBlock {
+                    result ? print("Image filtering complete") : print("Image filtering did not complete")
+                    self.activityIndicator.stopAnimating()
+                }
+            }
+        }
     }
     
     func filterImage(completion: (Bool) -> ()) {
@@ -73,15 +79,15 @@ class ImageViewController : UIViewController, UIScrollViewDelegate {
                 let finalResult = UIGraphicsGetImageFromCurrentImageContext()
                 UIGraphicsEndImageContext()
                 
-                print("Setting final result")
-                self.imageView?.image = finalResult
-                completion(true)
+//                print("Setting final result")
+//                self.imageView?.image = finalResult
+//                completion(true)
                 
-//                NSOperationQueue.mainQueue().addOperationWithBlock({
-//                    print("Setting final result")
-//                    self.imageView?.image = finalResult
-//                    completion(true)
-//                })
+                NSOperationQueue.mainQueue().addOperationWithBlock({
+                    print("Setting final result")
+                    self.imageView?.image = finalResult
+                    completion(true)
+                })
             }
         }
     }
@@ -102,11 +108,6 @@ extension ImageViewController {
         scrollView.delegate = self
         
         setZoomScale()
-        
-        activityIndicator = UIActivityIndicatorView(activityIndicatorStyle: .WhiteLarge)
-        activityIndicator.color = UIColor.cyanColor()
-        activityIndicator.center = view.center
-        view.addSubview(activityIndicator)
     }
     
     func viewForZoomingInScrollView(scrollView: UIScrollView) -> UIView? {
