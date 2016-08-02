@@ -24,16 +24,10 @@ class ImageViewController : UIViewController, UIScrollViewDelegate {
     @IBAction func antiqueButton(sender: AnyObject) {
         print("Starting activity indicator")
         activityIndicator.startAnimating()
-        let userQueue = NSOperationQueue()
-        userQueue.qualityOfService = .UserInitiated
-        userQueue.addOperationWithBlock {
-            self.filterImage { (result) in
-                NSOperationQueue.mainQueue().addOperationWithBlock {
-                    if result {
-                        self.activityIndicator.stopAnimating()
-                        print("Stopping activity indicator")
-                    }
-                }
+        filterImage { (result) in
+            if result {
+                print("Stopping activity indicator")
+                self.activityIndicator.stopAnimating()
             }
         }
     }
@@ -63,12 +57,9 @@ class ImageViewController : UIViewController, UIScrollViewDelegate {
             if let exposureOutput = exposureFilter?.valueForKey(kCIOutputImageKey) as? CIImage {
                 let output = context.createCGImage(exposureOutput, fromRect: exposureOutput.extent)
                 let result = UIImage(CGImage: output)
-                
-                NSOperationQueue.mainQueue().addOperationWithBlock({
-                    print("Rendering image")
-                    self.imageView?.image = result
-                    completion(true)
-                })
+                print("Rendering image")
+                self.imageView?.image = result
+                completion(true)
             }
         }
     }
