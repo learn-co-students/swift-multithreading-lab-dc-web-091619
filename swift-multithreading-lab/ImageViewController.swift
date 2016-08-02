@@ -19,24 +19,11 @@ class ImageViewController : UIViewController, UIScrollViewDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupViews()
-    }
-    
-    func setupViews() {
-        imageView = UIImageView(image: UIImage(named: "FlatironFam"))
-        scrollView = UIScrollView(frame: view.bounds)
-        scrollView.backgroundColor = UIColor.blackColor()
-        scrollView.contentSize = imageView.bounds.size
-        scrollView.autoresizingMask = [.FlexibleWidth, .FlexibleHeight]
-        scrollView.contentOffset = CGPoint(x: 800, y: 200)
-        scrollView.addSubview(imageView)
-        view.addSubview(scrollView)
-        scrollView.delegate = self
+        
         activityIndicator = UIActivityIndicatorView(activityIndicatorStyle: .WhiteLarge)
         activityIndicator.color = UIColor.cyanColor()
         activityIndicator.center = view.center
         view.addSubview(activityIndicator)
-        setZoomScale()
-        setupGestureRecognizer()
     }
     
     @IBAction func antiqueButton(sender: AnyObject) {
@@ -100,6 +87,22 @@ class ImageViewController : UIViewController, UIScrollViewDelegate {
 }
 
 extension ImageViewController {
+    
+    func setupViews() {
+        imageView = UIImageView(image: UIImage(named: "FlatironFam"))
+        
+        scrollView = UIScrollView(frame: view.bounds)
+        scrollView.backgroundColor = UIColor.blackColor()
+        scrollView.contentSize = imageView.bounds.size
+        scrollView.autoresizingMask = [.FlexibleWidth, .FlexibleHeight]
+        scrollView.contentOffset = CGPoint(x: 800, y: 200)
+        scrollView.addSubview(imageView)
+        view.addSubview(scrollView)
+        scrollView.delegate = self
+        
+        setZoomScale()
+        setupGestureRecognizer()
+    }
     
     func viewForZoomingInScrollView(scrollView: UIScrollView) -> UIView? {
         return imageView
