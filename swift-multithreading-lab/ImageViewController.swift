@@ -12,67 +12,99 @@ import CoreImage
 
 class ImageViewController : UIViewController, UIScrollViewDelegate {
     
-    @IBOutlet weak var scrollView: UIScrollView!
-    @IBOutlet weak var imageView: UIImageView!
-    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
-    @IBOutlet weak var imageViewBottomConstraint: NSLayoutConstraint!
-    @IBOutlet weak var imageViewLeadingConstraint: NSLayoutConstraint!
-    @IBOutlet weak var imageViewTopConstraint: NSLayoutConstraint!
-    @IBOutlet weak var imageViewTrailingConstraint: NSLayoutConstraint!
+    var scrollView: UIScrollView!
+    var imageView: UIImageView!
+    var activityIndicator: UIActivityIndicatorView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        imageView.image = UIImage(named: "FlatironFam")
+        
+        imageView = UIImageView(image: UIImage(named: "FlatironFam"))
+        
+        scrollView = UIScrollView(frame: view.bounds)
+        scrollView.backgroundColor = UIColor.blackColor()
+        scrollView.contentSize = imageView.bounds.size
+        scrollView.autoresizingMask = [.FlexibleWidth, .FlexibleHeight]
+        scrollView.contentOffset = CGPoint(x: 800, y: 200)
+        
+        scrollView.addSubview(imageView)
+        view.addSubview(scrollView)
+        
         scrollView.delegate = self
+        
+        activityIndicator = UIActivityIndicatorView()
+        activityIndicator.color = UIColor.cyanColor()
+        
+        view.addSubview(activityIndicator)
+        
+        setZoomScale()
+        
+        setupGestureRecognizer()
     }
     
-    @IBAction func ageItButton(sender: AnyObject) {
+    @IBAction func antiqueButton(sender: AnyObject) {
         print("Starting activity indicator")
         activityIndicator.startAnimating()
-        let userQueue = NSOperationQueue()
-        userQueue.qualityOfService = .UserInitiated
-        userQueue.addOperationWithBlock {
-            self.filterImage { (result) in
-                NSOperationQueue.mainQueue().addOperationWithBlock {
-                    if result {
-                        self.activityIndicator.stopAnimating()
-                        print("Stopping activity indicator")
+//        self.filterImage { (result) in
+//            if result {
+//                self.activityIndicator.stopAnimating()
+//            }
+//        }
+                let userQueue = NSOperationQueue()
+                userQueue.qualityOfService = .UserInitiated
+                userQueue.addOperationWithBlock {
+                    self.filterImage { (result) in
+                        NSOperationQueue.mainQueue().addOperationWithBlock {
+                            if result {
+                                self.activityIndicator.stopAnimating()
+                                print("Stopping activity indicator")
+                            }
+                        }
                     }
                 }
-            }
-        }
-    }
-    
-    private func updateMinZoomScaleForSize(size: CGSize) {
-        let widthScale = size.width / imageView.bounds.width
-        let heightScale = size.height / imageView.bounds.height
-        let minScale = min(widthScale, heightScale)
-        scrollView.minimumZoomScale = minScale
-        scrollView.zoomScale = minScale
-    }
-    
-    override func viewDidLayoutSubviews() {
-        super.viewDidLayoutSubviews()
-        updateMinZoomScaleForSize(view.bounds.size)
-    }
-    
-    private func updateConstraintsForSize(size: CGSize) {
-        let yOffset = max(0, (size.height - imageView.frame.height) / 2)
-        imageViewTopConstraint.constant = yOffset
-        imageViewBottomConstraint.constant = yOffset
-        let xOffset = max(0, (size.width - imageView.frame.width) / 2)
-        imageViewLeadingConstraint.constant = xOffset
-        imageViewTrailingConstraint.constant = xOffset
-        
-        view.layoutIfNeeded()
     }
     
     func viewForZoomingInScrollView(scrollView: UIScrollView) -> UIView? {
         return imageView
     }
     
+    override func viewWillLayoutSubviews() {
+        setZoomScale()
+    }
+    
     func scrollViewDidZoom(scrollView: UIScrollView) {
-        updateConstraintsForSize(view.bounds.size)
+        let imageViewSize = imageView.frame.size
+        let scrollViewSize = scrollView.bounds.size
+        
+        let verticalPadding = imageViewSize.height < scrollViewSize.height ? (scrollViewSize.height - imageViewSize.height) / 2 : 0
+        let horizontalPadding = imageViewSize.width < scrollViewSize.width ? (scrollViewSize.width - imageViewSize.width) / 2 : 0
+        
+        scrollView.contentInset = UIEdgeInsets(top: verticalPadding, left: horizontalPadding, bottom: verticalPadding, right: horizontalPadding)
+    }
+    
+    func setZoomScale() {
+        let imageViewSize = imageView.bounds.size
+        let scrollViewSize = scrollView.bounds.size
+        let widthScale = scrollViewSize.width / imageViewSize.width
+        let heightScale = scrollViewSize.height / imageViewSize.height
+        
+        scrollView.minimumZoomScale = min(widthScale, heightScale)
+        scrollView.zoomScale = 1.0
+    }
+    
+    func setupGestureRecognizer() {
+        let doubleTap = UITapGestureRecognizer(target: self, action: #selector(ImageViewController.handleDoubleTap(_:)))
+        doubleTap.numberOfTapsRequired = 2
+        scrollView.addGestureRecognizer(doubleTap)
+    }
+    
+    func handleDoubleTap(recognizer: UITapGestureRecognizer) {
+        
+        if (scrollView.zoomScale > scrollView.minimumZoomScale) {
+            scrollView.setZoomScale(scrollView.minimumZoomScale, animated: true)
+        } else {
+            scrollView.setZoomScale(scrollView.maximumZoomScale, animated: true)
+        }
     }
     
     func filterImage(completion: (Bool) -> ()) {
