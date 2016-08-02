@@ -82,9 +82,16 @@ class ImageViewController : UIViewController, UIScrollViewDelegate {
                 let output = context.createCGImage(exposureOutput, fromRect: exposureOutput.extent)
                 let result = UIImage(CGImage: output)
                 
+                print("Rendering image")
+                
+                UIGraphicsBeginImageContextWithOptions(result.size, false, result.scale)
+                result.drawAtPoint(CGPointZero)
+                let finalResult = UIGraphicsGetImageFromCurrentImageContext()
+                UIGraphicsEndImageContext()
+                
                 NSOperationQueue.mainQueue().addOperationWithBlock({
-                    print("Rendering image")
-                    self.imageView?.image = result
+                    print("Setting final result")
+                    self.imageView?.image = finalResult
                     completion(true)
                 })
             }
