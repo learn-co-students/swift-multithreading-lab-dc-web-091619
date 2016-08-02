@@ -10,13 +10,40 @@ In this lab you will fix a broken photo filter app which hangs when the user tri
 
 ## Goals
 
-* When the `Antique` button is tapped, an activity indicator should be presented and animated. This activity indicator should stop when the image is filtered.
+* When the `Antique` button is tapped, an activity indicator should be presented and animated to show the user some processing is going on. This activity indicator should stop when the image is filtered.
 * We also want to allow the user to continue to pan and zoom the image while the filtration occurs in the background.
 
 ## Instructions
 
-* Add an activity indicator.
+### Show an activity indicator
+ 
+* Let's add an activity indicator to our filtering app. Instead of doing this in Interface Builder, we'll add it programmatically. In the `ImageViewController` class, add a property called `antiqueButton` of type `UIActivityIndicatorView!`.
+* Next, in `viewDidLoad`, we'll create the actual view and set it up. Paste in the following lines of code:
+
+```swift
+activityIndicator = UIActivityIndicatorView(activityIndicatorStyle: .WhiteLarge)
+activityIndicator.color = UIColor.cyanColor()
+activityIndicator.center = view.center
+```
+
+* Here we instantiate a `UIActivityIndicatorView` object for the property we just created with the stile of `.WhiteLarge`. We then tint the indicator so it fits the theme of our app, and finally align it with the main view.
+* If you run the app now and hit `Antique`, you'll see the activity indicator still doesn't appear. We're not done yet! The `UIActivityIndicatorView` has been created, but hasn't been added to the superview. Do this by inserting `view.addSubview(activityIndicator)` into your `viewDidLoad`. This adds our `activityIndicator` to the view controller's `view`.
+* The last step we need to make our `activityIndicator` visible is to call it to start. Use the following lines to start and stop the indicator, respectively:
+
+```swift
+activityIndicator.startAnimating()  // Presents and starts the activity indicator
+activityIndicator.stopAnimating()   // Hides and stops the activity indicator
+```
+
+* Add just the `startAnimating` line to your `viewDidLoad` and run your app. You should see a blue spinning activity indicator! We don't want the indicator to start as soon as the app opens, though. Let's move this start function call to the `antiqueButton` function.
 * Start the activity indicator visible when the `Antique!` button is tapped and stop it when the image is filtered.
+
+### Allow for user interaction during filtering
+
+* Add a queue
+* Add a `mainQueue` operation block around the final filtered image getting set back in the `imageView` and the call to `completion`.
+
+
 
 ### Advanced
 

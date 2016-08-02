@@ -19,11 +19,6 @@ class ImageViewController : UIViewController, UIScrollViewDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupViews()
-        
-        activityIndicator = UIActivityIndicatorView(activityIndicatorStyle: .WhiteLarge)
-        activityIndicator.color = UIColor.cyanColor()
-        activityIndicator.center = view.center
-        view.addSubview(activityIndicator)
     }
     
     @IBAction func antiqueButton(sender: AnyObject) {
@@ -49,7 +44,6 @@ class ImageViewController : UIViewController, UIScrollViewDelegate {
     func filterImage(completion: (Bool) -> ()) {
         guard let image = imageView?.image, cgimg = image.CGImage else {
             print("imageView doesn't have an image!")
-            completion(false)
             return
         }
         
@@ -82,6 +76,12 @@ class ImageViewController : UIViewController, UIScrollViewDelegate {
                 print("Setting final result")
                 self.imageView?.image = finalResult
                 completion(true)
+                
+//                NSOperationQueue.mainQueue().addOperationWithBlock({
+//                    print("Setting final result")
+//                    self.imageView?.image = finalResult
+//                    completion(true)
+//                })
             }
         }
     }
@@ -102,7 +102,11 @@ extension ImageViewController {
         scrollView.delegate = self
         
         setZoomScale()
-        setupGestureRecognizer()
+        
+        activityIndicator = UIActivityIndicatorView(activityIndicatorStyle: .WhiteLarge)
+        activityIndicator.color = UIColor.cyanColor()
+        activityIndicator.center = view.center
+        view.addSubview(activityIndicator)
     }
     
     func viewForZoomingInScrollView(scrollView: UIScrollView) -> UIView? {
@@ -131,19 +135,5 @@ extension ImageViewController {
         
         scrollView.minimumZoomScale = min(widthScale, heightScale)
         scrollView.zoomScale = 1.0
-    }
-    
-    func setupGestureRecognizer() {
-        let doubleTap = UITapGestureRecognizer(target: self, action: #selector(ImageViewController.handleDoubleTap(_:)))
-        doubleTap.numberOfTapsRequired = 2
-        scrollView.addGestureRecognizer(doubleTap)
-    }
-    
-    func handleDoubleTap(recognizer: UITapGestureRecognizer) {
-        if (scrollView.zoomScale > scrollView.minimumZoomScale) {
-            scrollView.setZoomScale(scrollView.minimumZoomScale, animated: true)
-        } else {
-            scrollView.setZoomScale(scrollView.maximumZoomScale, animated: true)
-        }
     }
 }
