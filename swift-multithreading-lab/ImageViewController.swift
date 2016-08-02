@@ -82,12 +82,6 @@ class ImageViewController : UIViewController, UIScrollViewDelegate {
                 print("Setting final result")
                 self.imageView?.image = finalResult
                 completion(true)
-                
-//                NSOperationQueue.mainQueue().addOperationWithBlock({
-//                    print("Setting final result")
-//                    self.imageView?.image = finalResult
-//                    completion(true)
-//                })
             }
         }
     }

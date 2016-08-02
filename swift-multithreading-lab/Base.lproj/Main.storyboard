@@ -5,7 +5,7 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
     </dependencies>
     <scenes>
-        <!--Image View Controller-->
+        <!--Flatigram-->
         <scene sceneID="5Pa-OM-3A0">
             <objects>
                 <viewController automaticallyAdjustsScrollViewInsets="NO" id="GqE-4z-MaU" customClass="ImageViewController" customModule="swift_multithreading_lab" customModuleProvider="target" sceneMemberID="viewController">
@@ -28,8 +28,9 @@
                         </constraints>
                     </view>
                     <extendedEdge key="edgesForExtendedLayout"/>
-                    <navigationItem key="navigationItem" id="Dts-jT-2Dh">
-                        <barButtonItem key="rightBarButtonItem" title="Antique!" id="NvH-aY-rNL">
+                    <navigationItem key="navigationItem" title="Flatigram" id="Dts-jT-2Dh">
+                        <barButtonItem key="rightBarButtonItem" title="Antique" id="NvH-aY-rNL">
+                            <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                             <connections>
                                 <action selector="antiqueButton:" destination="GqE-4z-MaU" id="ebl-Um-tmQ"/>
                             </connections>
@@ -41,16 +42,20 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ROA-Q9-xs8" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1689" y="1"/>
+            <point key="canvasLocation" x="1578" y="1"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="DXx-u7-vr6">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="oHO-h2-LWp" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="uSa-wx-4fp">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" barStyle="black" id="uSa-wx-4fp">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
+                        <color key="barTintColor" red="0.17058084750799155" green="0.79384244589958952" blue="0.85380909974093266" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <textAttributes key="titleTextAttributes">
+                            <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="20"/>
+                        </textAttributes>
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>

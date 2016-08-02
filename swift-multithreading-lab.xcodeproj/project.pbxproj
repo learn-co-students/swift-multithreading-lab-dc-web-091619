@@ -89,6 +89,17 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		1BC0A3F11D50FE3900A04E3B /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				1BD309A71D4654E300A76984 /* AppDelegate.swift */,
+				1BD309AE1D4654E300A76984 /* Assets.xcassets */,
+				1BD309B01D4654E300A76984 /* LaunchScreen.storyboard */,
+				1BD309B31D4654E300A76984 /* Info.plist */,
+			);
+			name = Resources;
+			sourceTree = "<group>";
+		};
 		1BD3099B1D4654E300A76984 = {
 			isa = PBXGroup;
 			children = (
@@ -114,12 +125,9 @@
 		1BD309A61D4654E300A76984 /* swift-multithreading-lab */ = {
 			isa = PBXGroup;
 			children = (
-				1BD309A71D4654E300A76984 /* AppDelegate.swift */,
-				1BD309AB1D4654E300A76984 /* Main.storyboard */,
-				1BD309AE1D4654E300A76984 /* Assets.xcassets */,
-				1BD309B01D4654E300A76984 /* LaunchScreen.storyboard */,
-				1BD309B31D4654E300A76984 /* Info.plist */,
 				1B7E701A1D4A414800DC8364 /* ImageViewController.swift */,
+				1BD309AB1D4654E300A76984 /* Main.storyboard */,
+				1BC0A3F11D50FE3900A04E3B /* Resources */,
 			);
 			path = "swift-multithreading-lab";
 			sourceTree = "<group>";
