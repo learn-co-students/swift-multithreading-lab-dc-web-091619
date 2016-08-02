@@ -21,13 +21,37 @@ class ImageViewController : UIViewController, UIScrollViewDelegate {
         setupViews()
     }
     
+    func setupViews() {
+        imageView = UIImageView(image: UIImage(named: "FlatironFam"))
+        scrollView = UIScrollView(frame: view.bounds)
+        scrollView.backgroundColor = UIColor.blackColor()
+        scrollView.contentSize = imageView.bounds.size
+        scrollView.autoresizingMask = [.FlexibleWidth, .FlexibleHeight]
+        scrollView.contentOffset = CGPoint(x: 800, y: 200)
+        scrollView.addSubview(imageView)
+        view.addSubview(scrollView)
+        scrollView.delegate = self
+        activityIndicator = UIActivityIndicatorView(activityIndicatorStyle: .WhiteLarge)
+        activityIndicator.color = UIColor.cyanColor()
+        activityIndicator.center = view.center
+        view.addSubview(activityIndicator)
+        setZoomScale()
+        setupGestureRecognizer()
+    }
+    
     @IBAction func antiqueButton(sender: AnyObject) {
         print("Starting activity indicator")
         activityIndicator.startAnimating()
-        filterImage { (result) in
-            if result {
-                print("Stopping activity indicator")
-                self.activityIndicator.stopAnimating()
+        let userQueue = NSOperationQueue()
+        userQueue.qualityOfService = .UserInitiated
+        userQueue.addOperationWithBlock {
+            self.filterImage { (result) in
+                NSOperationQueue.mainQueue().addOperationWithBlock {
+                    if result {
+                        self.activityIndicator.stopAnimating()
+                        print("Stopping activity indicator")
+                    }
+                }
             }
         }
     }
@@ -57,12 +81,25 @@ class ImageViewController : UIViewController, UIScrollViewDelegate {
             if let exposureOutput = exposureFilter?.valueForKey(kCIOutputImageKey) as? CIImage {
                 let output = context.createCGImage(exposureOutput, fromRect: exposureOutput.extent)
                 let result = UIImage(CGImage: output)
+                
                 print("Rendering image")
-                self.imageView?.image = result
-                completion(true)
+                
+                UIGraphicsBeginImageContextWithOptions(result.size, false, result.scale)
+                result.drawAtPoint(CGPointZero)
+                let finalResult = UIGraphicsGetImageFromCurrentImageContext()
+                UIGraphicsEndImageContext()
+                
+                NSOperationQueue.mainQueue().addOperationWithBlock({
+                    print("Setting final result")
+                    self.imageView?.image = finalResult
+                    completion(true)
+                })
             }
         }
     }
+}
+
+extension ImageViewController {
     
     func viewForZoomingInScrollView(scrollView: UIScrollView) -> UIView? {
         return imageView
@@ -104,23 +141,5 @@ class ImageViewController : UIViewController, UIScrollViewDelegate {
         } else {
             scrollView.setZoomScale(scrollView.maximumZoomScale, animated: true)
         }
-    }
-    
-    func setupViews() {
-        imageView = UIImageView(image: UIImage(named: "FlatironFam"))
-        scrollView = UIScrollView(frame: view.bounds)
-        scrollView.backgroundColor = UIColor.blackColor()
-        scrollView.contentSize = imageView.bounds.size
-        scrollView.autoresizingMask = [.FlexibleWidth, .FlexibleHeight]
-        scrollView.contentOffset = CGPoint(x: 800, y: 200)
-        scrollView.addSubview(imageView)
-        view.addSubview(scrollView)
-        scrollView.delegate = self
-        activityIndicator = UIActivityIndicatorView(activityIndicatorStyle: .WhiteLarge)
-        activityIndicator.color = UIColor.cyanColor()
-        activityIndicator.center = view.center
-        view.addSubview(activityIndicator)
-        setZoomScale()
-        setupGestureRecognizer()
     }
 }
