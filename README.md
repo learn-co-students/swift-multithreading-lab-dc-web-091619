@@ -17,7 +17,7 @@ In this lab you will fix a broken photo filter app which hangs when the user tri
 
 ### Show an activity indicator
  
-* Let's add an activity indicator to our filtering app. Instead of doing this in Interface Builder, we'll add it programmatically. In the `ImageViewController` class, add a property called `antiqueButton` of type `UIActivityIndicatorView!`.
+* Let's add an activity indicator to our filtering app. Instead of doing this in Interface Builder, we'll add it programmatically. In the `ImageViewController` class, add a property called `activityIndicator` of type `UIActivityIndicatorView!`.
 * Next, after `setupViews` in `viewDidLoad`, we'll create the actual view and set it up. Paste in the following lines of code:
 
 ```swift
