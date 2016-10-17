@@ -2,7 +2,7 @@
 //  ImageViewController.swift
 //  swift-multithreading-lab
 //
-//  Created by Flatiron School on 7/28/16.
+//  Created by Ian Rahman on 7/28/16.
 //  Copyright © 2016 Flatiron School. All rights reserved.
 //
 
@@ -28,6 +28,7 @@ class ImageViewController : UIViewController {
     }
     
     func filterImage(_ completion: (Bool) -> ()) {
+        
         guard let image = imageView?.image, let cgimg = image.cgImage else {
             print("imageView doesn't have an image!")
             return
@@ -42,34 +43,42 @@ class ImageViewController : UIViewController {
         sepiaFilter?.setValue(1, forKey: kCIInputIntensityKey)
         print("Applying CISepiaTone")
         
-        if let sepiaOutput = sepiaFilter?.value(forKey: kCIOutputImageKey) as? CIImage {
-            let exposureFilter = CIFilter(name: "CIExposureAdjust")
-            exposureFilter?.setValue(sepiaOutput, forKey: kCIInputImageKey)
-            exposureFilter?.setValue(1, forKey: kCIInputEVKey)
-            print("Applying CIExposureAdjust")
-            
-            if let exposureOutput = exposureFilter?.value(forKey: kCIOutputImageKey) as? CIImage {
-                let output = context.createCGImage(exposureOutput, from: exposureOutput.extent)
-                let result = UIImage(cgImage: output!)
-                
-                print("Rendering image")
-                
-                UIGraphicsBeginImageContextWithOptions(result.size, false, result.scale)
-                result.draw(at: CGPoint.zero)
-                let finalResult = UIGraphicsGetImageFromCurrentImageContext()
-                UIGraphicsEndImageContext()
-                
-                print("Setting final result")
-                self.imageView?.image = finalResult
-                completion(true)
-            }
+        guard let sepiaOutput = sepiaFilter?.value(forKey: kCIOutputImageKey) as? CIImage else {
+            completion(false)
+            return
         }
+        
+        let exposureFilter = CIFilter(name: "CIExposureAdjust")
+        exposureFilter?.setValue(sepiaOutput, forKey: kCIInputImageKey)
+        exposureFilter?.setValue(1, forKey: kCIInputEVKey)
+        print("Applying CIExposureAdjust")
+        
+        guard let exposureOutput = exposureFilter?.value(forKey: kCIOutputImageKey) as? CIImage else {
+            completion(false)
+            return
+        }
+        
+        let output = context.createCGImage(exposureOutput, from: exposureOutput.extent)
+        let result = UIImage(cgImage: output!)
+        
+        print("Rendering image")
+        
+        UIGraphicsBeginImageContextWithOptions(result.size, false, result.scale)
+        result.draw(at: CGPoint.zero)
+        let finalResult = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        
+        print("Setting final result")
+        self.imageView?.image = finalResult
+        completion(true)
     }
 }
+
 
 extension ImageViewController: UIScrollViewDelegate {
     
     func setupViews() {
+        
         imageView = UIImageView(image: UIImage(named: "FlatironFam"))
         
         scrollView = UIScrollView(frame: view.bounds)
@@ -78,8 +87,8 @@ extension ImageViewController: UIScrollViewDelegate {
         scrollView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         scrollView.contentOffset = CGPoint(x: 800, y: 200)
         scrollView.addSubview(imageView)
-        view.addSubview(scrollView)
         scrollView.delegate = self
+        view.addSubview(scrollView)
         
         setZoomScale()
     }
@@ -93,6 +102,7 @@ extension ImageViewController: UIScrollViewDelegate {
     }
     
     func scrollViewDidZoom(_ scrollView: UIScrollView) {
+        
         let imageViewSize = imageView.frame.size
         let scrollViewSize = scrollView.bounds.size
         
@@ -103,6 +113,7 @@ extension ImageViewController: UIScrollViewDelegate {
     }
     
     func setZoomScale() {
+        
         let imageViewSize = imageView.bounds.size
         let scrollViewSize = scrollView.bounds.size
         let widthScale = scrollViewSize.width / imageViewSize.width
