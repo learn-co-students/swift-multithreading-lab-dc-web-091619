@@ -12,11 +12,9 @@
 		1BD309AD1D4654E300A76984 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1BD309AB1D4654E300A76984 /* Main.storyboard */; };
 		1BD309AF1D4654E300A76984 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1BD309AE1D4654E300A76984 /* Assets.xcassets */; };
 		1BD309B21D4654E300A76984 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1BD309B01D4654E300A76984 /* LaunchScreen.storyboard */; };
-		AEB44720B81C0FDD99524AEE /* Pods_swift_multithreading_lab.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 331F2B4F82805ECB466C042F /* Pods_swift_multithreading_lab.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		1202FB3CA52C0B05A6616767 /* Pods_swift_multithreading_labUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_swift_multithreading_labUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		1B7E701A1D4A414800DC8364 /* ImageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageViewController.swift; sourceTree = "<group>"; };
 		1BD309A41D4654E300A76984 /* swift-multithreading-lab.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "swift-multithreading-lab.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		1BD309A71D4654E300A76984 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -24,10 +22,6 @@
 		1BD309AE1D4654E300A76984 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		1BD309B11D4654E300A76984 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		1BD309B31D4654E300A76984 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		331F2B4F82805ECB466C042F /* Pods_swift_multithreading_lab.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_swift_multithreading_lab.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		4A6B1B5C8204E4E24F4078E5 /* Pods-swift-multithreading-lab.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-swift-multithreading-lab.release.xcconfig"; path = "Pods/Target Support Files/Pods-swift-multithreading-lab/Pods-swift-multithreading-lab.release.xcconfig"; sourceTree = "<group>"; };
-		9513DBB9B32FD704A46CBD13 /* Pods_swift_multithreading_labTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_swift_multithreading_labTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		B73FF756A90B68757057BD45 /* Pods-swift-multithreading-lab.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-swift-multithreading-lab.debug.xcconfig"; path = "Pods/Target Support Files/Pods-swift-multithreading-lab/Pods-swift-multithreading-lab.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -35,7 +29,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				AEB44720B81C0FDD99524AEE /* Pods_swift_multithreading_lab.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -58,8 +51,6 @@
 			children = (
 				1BD309A61D4654E300A76984 /* swift-multithreading-lab */,
 				1BD309A51D4654E300A76984 /* Products */,
-				A1EDEC763A9B6966E2191DB1 /* Pods */,
-				B3F805717801EE4336CE449D /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -81,25 +72,6 @@
 			path = "swift-multithreading-lab";
 			sourceTree = "<group>";
 		};
-		A1EDEC763A9B6966E2191DB1 /* Pods */ = {
-			isa = PBXGroup;
-			children = (
-				B73FF756A90B68757057BD45 /* Pods-swift-multithreading-lab.debug.xcconfig */,
-				4A6B1B5C8204E4E24F4078E5 /* Pods-swift-multithreading-lab.release.xcconfig */,
-			);
-			name = Pods;
-			sourceTree = "<group>";
-		};
-		B3F805717801EE4336CE449D /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				331F2B4F82805ECB466C042F /* Pods_swift_multithreading_lab.framework */,
-				9513DBB9B32FD704A46CBD13 /* Pods_swift_multithreading_labTests.framework */,
-				1202FB3CA52C0B05A6616767 /* Pods_swift_multithreading_labUITests.framework */,
-			);
-			name = Frameworks;
-			sourceTree = "<group>";
-		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -107,12 +79,9 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 1BD309CC1D4654E300A76984 /* Build configuration list for PBXNativeTarget "swift-multithreading-lab" */;
 			buildPhases = (
-				4977AF88C556E42F80AAF439 /* [CP] Check Pods Manifest.lock */,
 				1BD309A01D4654E300A76984 /* Sources */,
 				1BD309A11D4654E300A76984 /* Frameworks */,
 				1BD309A21D4654E300A76984 /* Resources */,
-				E62CB45AF4F2FA9AD917776D /* [CP] Embed Pods Frameworks */,
-				B2F64A115D22ADBE24841229 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -130,11 +99,12 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0730;
-				LastUpgradeCheck = 0730;
+				LastUpgradeCheck = 0800;
 				ORGANIZATIONNAME = "Flatiron School";
 				TargetAttributes = {
 					1BD309A31D4654E300A76984 = {
 						CreatedOnToolsVersion = 7.3.1;
+						LastSwiftMigration = 0800;
 					};
 				};
 			};
@@ -168,54 +138,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
-
-/* Begin PBXShellScriptBuildPhase section */
-		4977AF88C556E42F80AAF439 /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
-			showEnvVarsInLog = 0;
-		};
-		B2F64A115D22ADBE24841229 /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-swift-multithreading-lab/Pods-swift-multithreading-lab-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		E62CB45AF4F2FA9AD917776D /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-swift-multithreading-lab/Pods-swift-multithreading-lab-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		1BD309A01D4654E300A76984 /* Sources */ = {
@@ -263,8 +185,10 @@
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
@@ -309,8 +233,10 @@
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
@@ -329,6 +255,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
 			};
@@ -336,25 +263,25 @@
 		};
 		1BD309CD1D4654E300A76984 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = B73FF756A90B68757057BD45 /* Pods-swift-multithreading-lab.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = "swift-multithreading-lab/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.FlatironSchool.swift-multithreading-lab";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
 		};
 		1BD309CE1D4654E300A76984 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 4A6B1B5C8204E4E24F4078E5 /* Pods-swift-multithreading-lab.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = "swift-multithreading-lab/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.FlatironSchool.swift-multithreading-lab";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
 			};
 			name = Release;
 		};

@@ -1,6 +1,0 @@
-framework module Pods_swift_multithreading_lab {
-  umbrella header "Pods-swift-multithreading-lab-umbrella.h"
-
-  export *
-  module * { export * }
-}

@@ -10,7 +10,7 @@ import Foundation
 import UIKit
 import CoreImage
 
-class ImageViewController : UIViewController, UIScrollViewDelegate {
+class ImageViewController : UIViewController {
     
     var scrollView: UIScrollView!
     var imageView: UIImageView!
@@ -21,41 +21,41 @@ class ImageViewController : UIViewController, UIScrollViewDelegate {
         setupViews()
     }
     
-    @IBAction func antiqueButtonTapped(sender: AnyObject) {
+    @IBAction func antiqueButtonTapped(_ sender: AnyObject) {
         filterImage { (result) in
             result ? print("Image filtering complete") : print("Image filtering did not complete")
         }
     }
     
-    func filterImage(completion: (Bool) -> ()) {
-        guard let image = imageView?.image, cgimg = image.CGImage else {
+    func filterImage(_ completion: (Bool) -> ()) {
+        guard let image = imageView?.image, let cgimg = image.cgImage else {
             print("imageView doesn't have an image!")
             return
         }
         
-        let openGLContext = EAGLContext(API: .OpenGLES2)
-        let context = CIContext(EAGLContext: openGLContext!)
-        let coreImage = CIImage(CGImage: cgimg)
+        let openGLContext = EAGLContext(api: .openGLES2)
+        let context = CIContext(eaglContext: openGLContext!)
+        let coreImage = CIImage(cgImage: cgimg)
         
         let sepiaFilter = CIFilter(name: "CISepiaTone")
         sepiaFilter?.setValue(coreImage, forKey: kCIInputImageKey)
         sepiaFilter?.setValue(1, forKey: kCIInputIntensityKey)
         print("Applying CISepiaTone")
         
-        if let sepiaOutput = sepiaFilter?.valueForKey(kCIOutputImageKey) as? CIImage {
+        if let sepiaOutput = sepiaFilter?.value(forKey: kCIOutputImageKey) as? CIImage {
             let exposureFilter = CIFilter(name: "CIExposureAdjust")
             exposureFilter?.setValue(sepiaOutput, forKey: kCIInputImageKey)
             exposureFilter?.setValue(1, forKey: kCIInputEVKey)
             print("Applying CIExposureAdjust")
             
-            if let exposureOutput = exposureFilter?.valueForKey(kCIOutputImageKey) as? CIImage {
-                let output = context.createCGImage(exposureOutput, fromRect: exposureOutput.extent)
-                let result = UIImage(CGImage: output)
+            if let exposureOutput = exposureFilter?.value(forKey: kCIOutputImageKey) as? CIImage {
+                let output = context.createCGImage(exposureOutput, from: exposureOutput.extent)
+                let result = UIImage(cgImage: output!)
                 
                 print("Rendering image")
                 
                 UIGraphicsBeginImageContextWithOptions(result.size, false, result.scale)
-                result.drawAtPoint(CGPointZero)
+                result.draw(at: CGPoint.zero)
                 let finalResult = UIGraphicsGetImageFromCurrentImageContext()
                 UIGraphicsEndImageContext()
                 
@@ -67,15 +67,15 @@ class ImageViewController : UIViewController, UIScrollViewDelegate {
     }
 }
 
-extension ImageViewController {
+extension ImageViewController: UIScrollViewDelegate {
     
     func setupViews() {
         imageView = UIImageView(image: UIImage(named: "FlatironFam"))
         
         scrollView = UIScrollView(frame: view.bounds)
-        scrollView.backgroundColor = UIColor.blackColor()
+        scrollView.backgroundColor = UIColor.black
         scrollView.contentSize = imageView.bounds.size
-        scrollView.autoresizingMask = [.FlexibleWidth, .FlexibleHeight]
+        scrollView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         scrollView.contentOffset = CGPoint(x: 800, y: 200)
         scrollView.addSubview(imageView)
         view.addSubview(scrollView)
@@ -84,7 +84,7 @@ extension ImageViewController {
         setZoomScale()
     }
     
-    func viewForZoomingInScrollView(scrollView: UIScrollView) -> UIView? {
+    func viewForZooming(in scrollView: UIScrollView) -> UIView? {
         return imageView
     }
     
@@ -92,7 +92,7 @@ extension ImageViewController {
         setZoomScale()
     }
     
-    func scrollViewDidZoom(scrollView: UIScrollView) {
+    func scrollViewDidZoom(_ scrollView: UIScrollView) {
         let imageViewSize = imageView.frame.size
         let scrollViewSize = scrollView.bounds.size
         
