@@ -79,7 +79,7 @@ extension ImageViewController: UIScrollViewDelegate {
     
     func setupViews() {
         
-        imageView = UIImageView(image: UIImage(named: "FlatironFam"))
+        imageView = UIImageView(image: UIImage(named: "bull"))
         
         scrollView = UIScrollView(frame: view.bounds)
         scrollView.backgroundColor = UIColor.black
