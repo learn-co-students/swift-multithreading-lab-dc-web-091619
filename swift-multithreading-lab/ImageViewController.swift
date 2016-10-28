@@ -97,7 +97,7 @@ extension ImageViewController: UIScrollViewDelegate {
     
     func setupViews() {
         
-        imageView = UIImageView(image: UIImage(named: "FlatironFam"))
+        imageView = UIImageView(image: UIImage(named: "bull"))
         
         scrollView = UIScrollView(frame: view.bounds)
         scrollView.backgroundColor = UIColor.black
@@ -107,7 +107,7 @@ extension ImageViewController: UIScrollViewDelegate {
         scrollView.addSubview(imageView)
         view.addSubview(scrollView)
         scrollView.delegate = self
-        
+        s
         setZoomScale()
     }
     
