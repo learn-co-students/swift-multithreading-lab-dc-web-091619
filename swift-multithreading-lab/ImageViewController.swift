@@ -2,7 +2,7 @@
 //  ImageViewController.swift
 //  swift-multithreading-lab
 //
-//  Created by Ian Rahman on 7/28/16.
+//  Created by Ian "The All Seeing Eye" Rahman on 7/28/16.
 //  Copyright © 2016 Flatiron School. All rights reserved.
 //
 
@@ -29,7 +29,8 @@ class ImageViewController : UIViewController {
     
     func filterImage(_ completion: (Bool) -> ()) {
         
-        guard let image = imageView?.image, let cgimg = image.cgImage else {
+        guard let image = imageView?.image,
+            let cgimg = image.cgImage else {
             print("imageView doesn't have an image!")
             return
         }
@@ -109,7 +110,10 @@ extension ImageViewController: UIScrollViewDelegate {
         let verticalPadding = imageViewSize.height < scrollViewSize.height ? (scrollViewSize.height - imageViewSize.height) / 2 : 0
         let horizontalPadding = imageViewSize.width < scrollViewSize.width ? (scrollViewSize.width - imageViewSize.width) / 2 : 0
         
-        scrollView.contentInset = UIEdgeInsets(top: verticalPadding, left: horizontalPadding, bottom: verticalPadding, right: horizontalPadding)
+        scrollView.contentInset = UIEdgeInsets(top: verticalPadding,
+                                               left: horizontalPadding,
+                                               bottom: verticalPadding,
+                                               right: horizontalPadding)
     }
     
     func setZoomScale() {
