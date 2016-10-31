@@ -22,17 +22,18 @@ There are some hints included in the following instructions. Try to complete eac
 * Add a `UIActivityIndicatorView` to the Flatirgram app. Instead of doing this in Interface Builder, add it programmatically.
 * Next, within the `setupViews` function in the `ImageViewController` extension, set up the activity indicator. Make the activity indicator `.cyan` and centered in the main view.
 
-> **Hint:** In the `ImageViewController` class, add a property called `activityIndicator` of type `UIActivityIndicatorView!`. Use the following code to set it up properly:
+> **Hint:** In the `ImageViewController` class, add a property called `activityIndicator` of type `UIActivityIndicatorView!`. Use the following code to set it up properly in the extension:
 
 ```swift
 activityIndicator = UIActivityIndicatorView(activityIndicatorStyle: .whiteLarge)
 activityIndicator.color = UIColor.cyan
 activityIndicator.center = view.center
+view.addSubview(activityIndicator)
 ```
 
 > Here we instantiate a `UIActivityIndicatorView` object for the property we just created with the stile of `.whiteLarge`. We then tint the indicator so it fits the theme of our app, and finally align it with the main view.
 
-* If you run the app now and hit `Antique`, you'll see the activity indicator still doesn't appear. We're not done yet! The `UIActivityIndicatorView` has been created, but hasn't been added to the superview. Do this by inserting `view.addSubview(activityIndicator)` into your `viewDidLoad`. This adds our `activityIndicator` to the view controller's `view`.
+* If you run the app now and hit `Antique`, you'll see the activity indicator still doesn't appear. We're not done yet! The `UIActivityIndicatorView` has been created, but hasn't been added to the superview. Do this with . This adds our `activityIndicator` to the view controller's `view`.
 * The last step we need to make our `activityIndicator` visible is to call it to start. Use the following lines to start and stop the indicator, respectively:
 
 ```swift

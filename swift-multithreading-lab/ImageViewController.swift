@@ -13,18 +13,18 @@ import CoreImage
 class ImageViewController : UIViewController {
     
     var scrollView: UIScrollView!
-    var imageView: UIImageView!
-    var activityIndicator: UIActivityIndicatorView!
+    var imageView = UIImageView()
+    var activityIndicator = UIActivityIndicatorView()
+    let picker = UIImagePickerController()
     
     override func viewDidLoad() {
-        
         super.viewDidLoad()
-        
+        picker.delegate = self
         setupViews()
     }
     
     @IBAction func cameraButtonTapped(_ sender: Any) {
-        
+        selectImage()
     }
     
     @IBAction func antiqueButtonTapped(_ sender: AnyObject) {
@@ -45,7 +45,7 @@ class ImageViewController : UIViewController {
     
     func filterImage(_ completion: @escaping (Bool) -> ()) {
         
-        guard let image = imageView?.image, let cgimg = image.cgImage else {
+        guard let image = imageView.image, let cgimg = image.cgImage else {
             print("imageView doesn't have an image!")
             return
         }
@@ -86,62 +86,8 @@ class ImageViewController : UIViewController {
         
         OperationQueue.main.addOperation({
             print("Setting final result")
-            self.imageView?.image = finalResult
+            self.imageView.image = finalResult
             completion(true)
         })
-    }
-}
-
-extension ImageViewController: UIScrollViewDelegate {
-    
-    func setupViews() {
-        
-        imageView = UIImageView(image: UIImage(named: "bull"))
-        
-        scrollView = UIScrollView(frame: view.bounds)
-        scrollView.backgroundColor = UIColor.black
-        scrollView.contentSize = imageView.bounds.size
-        scrollView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-        scrollView.contentOffset = CGPoint(x: 800, y: 200)
-        scrollView.addSubview(imageView)
-        view.addSubview(scrollView)
-        scrollView.delegate = self
-        setZoomScale()
-        
-        activityIndicator = UIActivityIndicatorView(activityIndicatorStyle: .whiteLarge)
-
-        activityIndicator.color = UIColor.cyan
-        activityIndicator.center = view.center
-        view.addSubview(activityIndicator)
-    }
-    
-    func viewForZooming(in scrollView: UIScrollView) -> UIView? {
-        return imageView
-    }
-    
-    override func viewWillLayoutSubviews() {
-        setZoomScale()
-    }
-    
-    func scrollViewDidZoom(_ scrollView: UIScrollView) {
-        
-        let imageViewSize = imageView.frame.size
-        let scrollViewSize = scrollView.bounds.size
-        
-        let verticalPadding = imageViewSize.height < scrollViewSize.height ? (scrollViewSize.height - imageViewSize.height) / 2 : 0
-        let horizontalPadding = imageViewSize.width < scrollViewSize.width ? (scrollViewSize.width - imageViewSize.width) / 2 : 0
-        
-        scrollView.contentInset = UIEdgeInsets(top: verticalPadding, left: horizontalPadding, bottom: verticalPadding, right: horizontalPadding)
-    }
-    
-    func setZoomScale() {
-        
-        let imageViewSize = imageView.bounds.size
-        let scrollViewSize = scrollView.bounds.size
-        let widthScale = scrollViewSize.width / imageViewSize.width
-        let heightScale = scrollViewSize.height / imageViewSize.height
-        
-        scrollView.minimumZoomScale = min(widthScale, heightScale)
-        scrollView.zoomScale = 1.0
     }
 }
