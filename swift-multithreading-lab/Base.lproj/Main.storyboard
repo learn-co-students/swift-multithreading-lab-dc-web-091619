@@ -36,6 +36,9 @@
                             </connections>
                         </barButtonItem>
                     </navigationItem>
+                    <connections>
+                        <outlet property="chooseImageButton" destination="yIX-rM-yQs" id="xMB-6c-sNP"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ROA-Q9-xs8" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

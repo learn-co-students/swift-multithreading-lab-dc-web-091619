@@ -17,10 +17,12 @@ class ImageViewController : UIViewController {
     var activityIndicator = UIActivityIndicatorView()
     let picker = UIImagePickerController()
     
+    @IBOutlet weak var chooseImageButton: UIBarButtonItem!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         picker.delegate = self
-        setupViews()
+        setUpViews()
     }
     
     @IBAction func cameraButtonTapped(_ sender: Any) {
@@ -31,6 +33,8 @@ class ImageViewController : UIViewController {
         
         activityIndicator.startAnimating()
         
+        chooseImageButton.isEnabled = false
+        
         let userQueue = OperationQueue()
         userQueue.qualityOfService = .userInitiated
         userQueue.addOperation {
@@ -38,6 +42,7 @@ class ImageViewController : UIViewController {
                 OperationQueue.main.addOperation {
                     result ? print("Image filtering complete") : print("Image filtering did not complete")
                     self.activityIndicator.stopAnimating()
+                    self.chooseImageButton.isEnabled = true
                 }
             }
         }

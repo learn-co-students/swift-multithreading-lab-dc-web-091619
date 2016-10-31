@@ -8,18 +8,16 @@
 
 import Foundation
 import UIKit
-import CoreImage
 
 extension ImageViewController {
     
-    func setupViews() {
+    func setUpViews() {
         
-        scrollView = UIScrollView(frame: view.bounds)
-        scrollView.backgroundColor = UIColor.black
+        scrollView = UIScrollView(frame: view.frame)
         scrollView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         scrollView.delegate = self
         
-        resetScrollView()
+        setUpScrollView()
         scrollView.addSubview(imageView)
         view.addSubview(scrollView)
         
@@ -29,7 +27,7 @@ extension ImageViewController {
         view.addSubview(activityIndicator)
     }
     
-    func resetScrollView() {
+    func setUpScrollView() {
         
         if let image = imageView.image {
             scrollView.contentOffset = CGPoint(x: image.size.width/2, y: image.size.height/2)
@@ -83,7 +81,7 @@ extension ImageViewController: UIImagePickerControllerDelegate, UINavigationCont
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
         imageView.image = info[UIImagePickerControllerOriginalImage] as? UIImage
         imageView.contentMode = .scaleAspectFit
-        resetScrollView()
+        self.setUpScrollView()
         dismiss(animated: true, completion: nil)
     }
     
