@@ -1,8 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="16A254g" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="oHO-h2-LWp">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11542" systemVersion="16B2555" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="oHO-h2-LWp">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11524"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
         <!--Flatigram-->
@@ -14,31 +18,24 @@
                         <viewControllerLayoutGuide type="bottom" id="SLJ-fL-fQb"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="enw-Rg-vdU">
-                        <rect key="frame" x="0.0" y="64" width="600" height="536"/>
+                        <rect key="frame" x="0.0" y="64" width="375" height="603"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                        <subviews>
-                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="fMg-2k-t9H">
-                                <rect key="frame" x="282" y="250" width="37" height="37"/>
-                                <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                            </activityIndicatorView>
-                        </subviews>
-                        <constraints>
-                            <constraint firstItem="fMg-2k-t9H" firstAttribute="centerY" secondItem="enw-Rg-vdU" secondAttribute="centerY" id="SWb-ts-oVe"/>
-                            <constraint firstItem="fMg-2k-t9H" firstAttribute="centerX" secondItem="enw-Rg-vdU" secondAttribute="centerX" id="WLc-W4-HLE"/>
-                        </constraints>
                     </view>
                     <extendedEdge key="edgesForExtendedLayout"/>
                     <navigationItem key="navigationItem" title="Flatigram" id="Dts-jT-2Dh">
-                        <barButtonItem key="rightBarButtonItem" title="Antique" id="NvH-aY-rNL">
+                        <barButtonItem key="leftBarButtonItem" systemItem="camera" id="yIX-rM-yQs">
                             <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                            <connections>
+                                <action selector="cameraButtonTapped:" destination="GqE-4z-MaU" id="3hu-uX-XPZ"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" title="Antique" id="NvH-aY-rNL">
+                            <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <connections>
                                 <action selector="antiqueButtonTapped:" destination="GqE-4z-MaU" id="HAu-sw-Iv8"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
-                    <connections>
-                        <outlet property="activityIndicator" destination="fMg-2k-t9H" id="wmE-hw-ZCC"/>
-                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ROA-Q9-xs8" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -52,7 +49,7 @@
                     <navigationBar key="navigationBar" contentMode="scaleToFill" barStyle="black" id="uSa-wx-4fp">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
-                        <color key="barTintColor" red="0.17058084750799155" green="0.79384244589958952" blue="0.85380909974093266" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="barTintColor" red="0.1643252819776535" green="0.75374841690063477" blue="0.81879258155822754" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <textAttributes key="titleTextAttributes">
                             <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="20"/>
                         </textAttributes>

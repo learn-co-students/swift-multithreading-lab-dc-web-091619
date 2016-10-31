@@ -21,11 +21,10 @@ class ImageViewController : UIViewController {
         super.viewDidLoad()
         
         setupViews()
+    }
+    
+    @IBAction func cameraButtonTapped(_ sender: Any) {
         
-        activityIndicator = UIActivityIndicatorView(activityIndicatorStyle: .whiteLarge)
-        activityIndicator.color = UIColor.cyan
-        activityIndicator.center = view.center
-        view.addSubview(activityIndicator)
     }
     
     @IBAction func antiqueButtonTapped(_ sender: AnyObject) {
@@ -107,8 +106,13 @@ extension ImageViewController: UIScrollViewDelegate {
         scrollView.addSubview(imageView)
         view.addSubview(scrollView)
         scrollView.delegate = self
-        s
         setZoomScale()
+        
+        activityIndicator = UIActivityIndicatorView(activityIndicatorStyle: .whiteLarge)
+
+        activityIndicator.color = UIColor.cyan
+        activityIndicator.center = view.center
+        view.addSubview(activityIndicator)
     }
     
     func viewForZooming(in scrollView: UIScrollView) -> UIView? {
