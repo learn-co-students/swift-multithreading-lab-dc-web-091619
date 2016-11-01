@@ -56,6 +56,8 @@ activityIndicator.stopAnimating()   // Hides and stops the activity indicator
 
 * Play around with other filters and see what you can create! Here's a [list of all available CIFilters](https://developer.apple.com/library/mac/documentation/GraphicsImaging/Reference/CoreImageFilterReference/index.html) to get you started.
 * Add a camera button to the nav bar which presents an alert asking if the user wants to load a photo from the library or take a photo with the camera. In either case, the new photo should be loaded into the Flatigram app, ready for antiquing.
+* Figure out a way to cache filtered images so if they've already been filtered, the filtered version is loaded right away upon selecting that photo.
+* Add the ability to cancel a filter operation.
 
 
 <p data-visibility='hidden'>View <a href='https://learn.co/lessons/swift-multithreading-lab' title='Multithreading in Swift'>Multithreading in Swift</a> on Learn.co and start learning to code for free.</p>

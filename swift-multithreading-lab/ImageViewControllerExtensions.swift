@@ -33,11 +33,10 @@ extension ImageViewController {
             scrollView.contentOffset = CGPoint(x: image.size.width/2, y: image.size.height/2)
         } else {
             guard let bull = UIImage(named: "bull") else { return }
-            imageView = UIImageView(image: bull)
+            photo.image = bull
+            imageView = UIImageView(image: photo.image)
             scrollView.contentOffset = CGPoint(x: bull.size.width/2, y: bull.size.height/2)
-            
         }
-        
         scrollView.contentSize = imageView.bounds.size
         setZoomScale()
     }
@@ -79,7 +78,8 @@ extension ImageViewController: UIScrollViewDelegate {
 extension ImageViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
-        imageView.image = info[UIImagePickerControllerOriginalImage] as? UIImage
+        photo.image = info[UIImagePickerControllerOriginalImage] as? UIImage
+        imageView.image = photo.image
         imageView.contentMode = .scaleAspectFit
         self.setUpScrollView()
         dismiss(animated: true, completion: nil)
