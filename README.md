@@ -38,7 +38,7 @@ Write an extension for the `UIImage` class called `filter(with:)` that takes in 
 
 Inside this function you'll need to start by converting the `UIImage` to a `CIImage`. 
 
-[Hint: Image Filtering](#Filtering)
+[Hint](#Hints)
 
 ### Show an activity indicator
  
@@ -83,7 +83,7 @@ activityIndicator.stopAnimating()   // Hides and stops the activity indicator
 * Add the ability to cancel a filter operation midway.
 
 
-### Hints
+# Hints
 
 #### Filtering
 
