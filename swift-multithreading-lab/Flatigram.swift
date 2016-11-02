@@ -1,5 +1,5 @@
 //
-//  FlatigramImage.swift
+//  Flatigram.swift
 //  swift-multithreading-lab
 //
 //  Created by Ian Rahman on 11/2/16.
@@ -12,9 +12,9 @@ import UIKit
 
 // MARK: FlatigramImage class
 
-class FlatigramImage {
+class Flatigram {
     var state = ImageState.unfiltered
-    var image = UIImage()
+    var image: UIImage?
 }
 
 enum ImageState {

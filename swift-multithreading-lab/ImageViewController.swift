@@ -17,7 +17,7 @@ class ImageViewController : UIViewController {
     
     var scrollView: UIScrollView!
     var imageView = UIImageView()
-    var photo = FlatigramImage()
+    var flatigram = Flatigram()
     let picker = UIImagePickerController()
     var activityIndicator = UIActivityIndicatorView()
     let pendingOperations = PendingOperations()
@@ -38,7 +38,7 @@ class ImageViewController : UIViewController {
     }
     
     @IBAction func antiqueButtonTapped(_ sender: AnyObject) {
-        switch (photo.state) {
+        switch (flatigram.state) {
         case .unfiltered:
             startProcess()
         case .filtered:
@@ -71,7 +71,7 @@ extension ImageViewController {
             
             OperationQueue.main.addOperation {
                 result ? print("Image successfully filtered") : print("Image filtering did not complete")
-                self.imageView.image = self.photo.image
+                self.imageView.image = self.flatigram.image
                 self.activityIndicator.stopAnimating()
                 self.antiqueButton.isEnabled = true
                 self.chooseImageButton.isEnabled = true
@@ -85,7 +85,7 @@ extension ImageViewController {
         
         for filter in filtersToApply {
             
-            let filterer = FilterOperation(image: photo, filter: filter)
+            let filterer = FilterOperation(flatigram: flatigram, filter: filter)
             filterer.completionBlock = {
                 
                 if filterer.isCancelled {
@@ -95,7 +95,7 @@ extension ImageViewController {
                 
                 if self.pendingOperations.filtrationQueue.operationCount == 0 {
                     DispatchQueue.main.async(execute: {
-                        self.photo.state = .filtered
+                        self.flatigram.state = .filtered
                         completion(true)
                     })
                 }

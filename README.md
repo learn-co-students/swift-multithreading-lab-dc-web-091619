@@ -30,7 +30,7 @@ There are some hints included in the following instructions. **Try to complete e
 
 This class should have two properties: an `image` of type UIImage and a `state` of type ImageState.
 
-`ImageState` is an enumeration that doesn't yet exist. Create an enum with two cases: `filtered` and `unfiltered`.
+`ImageState` is an enumeration that doesn't yet exist. Create an enum with two cases: `filtered` and `unfiltered`. Go back to 
 
 ### Give images the ability to filter
 

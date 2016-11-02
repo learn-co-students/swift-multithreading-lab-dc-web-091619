@@ -36,8 +36,8 @@ extension ImageViewController {
             scrollView.contentOffset = CGPoint(x: image.size.width/2, y: image.size.height/2)
         } else {
             guard let bull = UIImage(named: "bull") else { return }
-            photo.image = bull
-            imageView = UIImageView(image: photo.image)
+            flatigram.image = bull
+            imageView = UIImageView(image: flatigram.image)
             scrollView.contentOffset = CGPoint(x: bull.size.width/2, y: bull.size.height/2)
         }
         scrollView.contentSize = imageView.bounds.size
@@ -91,9 +91,9 @@ extension ImageViewController: UIImagePickerControllerDelegate, UINavigationCont
     func imagePickerController(_ picker: UIImagePickerController,
                                didFinishPickingMediaWithInfo info: [String : Any]) {
         
-        photo.image = info[UIImagePickerControllerOriginalImage] as! UIImage
-        photo.state = .unfiltered
-        imageView.image = photo.image
+        flatigram.image = info[UIImagePickerControllerOriginalImage] as? UIImage
+        flatigram.state = .unfiltered
+        imageView.image = flatigram.image
         imageView.contentMode = .scaleAspectFit
         self.setUpScrollView()
         dismiss(animated: true, completion: nil)
