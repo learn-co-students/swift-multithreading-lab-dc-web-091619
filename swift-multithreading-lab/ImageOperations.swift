@@ -10,7 +10,7 @@ import Foundation
 import UIKit
 
 enum ImageState {
-    case unfiltered, filtered, failed
+    case unfiltered, filtered
 }
 
 class Image {
@@ -21,34 +21,24 @@ class Image {
 class FilterOperation: Operation {
     
     let image: Image
+    let filter: String
     
-    init(_ image: Image) {
+    init(image: Image, filter: String) {
         self.image = image
+        self.filter = filter
     }
     
     override func main () {
-        if let filteredImage = self.applySepiaFilter(image.image!) {
+        
+        if let filteredImage = self.image.image?.filter(with: filter) {
             self.image.image = filteredImage
-            self.image.state = .filtered
         }
     }
     
-    func applySepiaFilter(_ image:UIImage) -> UIImage? {
-        let inputImage = CIImage(data:UIImagePNGRepresentation(image)!)
-        
-        let context = CIContext(options:nil)
-        let filter = CIFilter(name:"CISepiaTone")
-        filter?.setValue(inputImage, forKey: kCIInputImageKey)
-        filter?.setValue(0.8, forKey: "inputIntensity")
-        let outputImage = filter?.outputImage
-        
-        let outImage = context.createCGImage(outputImage!, from: outputImage!.extent)
-        let returnImage = UIImage(cgImage: outImage!)
-        return returnImage
-    }
 }
 
 class PendingOperations {
+    
     lazy var filtrationInProgress = Operation()
     lazy var filtrationQueue: OperationQueue = {
         var queue = OperationQueue()
@@ -57,4 +47,37 @@ class PendingOperations {
         queue.qualityOfService = .userInitiated
         return queue
     }()
+    
+}
+
+extension UIImage {
+    
+    func filter(with filter: String) -> UIImage? {
+        
+        let coreImage = CIImage(data:UIImagePNGRepresentation(self)!)
+        let openGLContext = EAGLContext(api: .openGLES2)
+        let context = CIContext(eaglContext: openGLContext!)
+        let ciFilter = CIFilter(name: filter)
+        ciFilter?.setValue(coreImage, forKey: kCIInputImageKey)
+        
+        guard let coreImageOutput = ciFilter?.value(forKey: kCIOutputImageKey) as? CIImage else {
+            print("Could not unwrap output of CIFilter: \(filter)")
+            return nil
+        }
+        
+        let output = context.createCGImage(coreImageOutput, from: coreImageOutput.extent)
+        let result = UIImage(cgImage: output!)
+        
+        UIGraphicsBeginImageContextWithOptions(result.size, false, result.scale)
+        result.draw(at: CGPoint.zero)
+        guard let finalResult = UIGraphicsGetImageFromCurrentImageContext() else {
+            print("Could not save final UIImage")
+            return nil
+        }
+        
+        UIGraphicsEndImageContext()
+        
+        return finalResult
+    }
+    
 }

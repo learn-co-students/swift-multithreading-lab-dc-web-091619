@@ -40,6 +40,52 @@ extension ImageViewController {
         scrollView.contentSize = imageView.bounds.size
         setZoomScale()
     }
+    
+    func startProcess() {
+        
+        activityIndicator.startAnimating()
+        chooseImageButton.isEnabled = false
+        
+        filterImage { result in
+            
+            OperationQueue.main.addOperation {
+                result ? print("Image successfully filtered") : print("Image filtering did not complete")
+                self.imageView.image = self.photo.image
+                self.activityIndicator.stopAnimating()
+                self.chooseImageButton.isEnabled = true
+            }
+        }
+    }
+    
+    func filterImage(_ completion: @escaping (Bool) -> ()) {
+        
+        guard !pendingOperations.filtrationInProgress.isExecuting else { completion(false); return }
+        
+        for filter in filtersToApply {
+            
+            let filterer = FilterOperation(image: photo, filter: filter)
+            filterer.completionBlock = {
+                
+                if filterer.isCancelled {
+                    completion(false)
+                    return
+                }
+                
+                if self.pendingOperations.filtrationQueue.operationCount == 0 {
+                    DispatchQueue.main.async(execute: {
+                        self.photo.state = .filtered
+                        completion(true)
+                    })
+                }
+            }
+            
+            pendingOperations.filtrationInProgress = filterer
+            pendingOperations.filtrationQueue.addOperation(filterer)
+            
+            print("Number of operations in filtrationQueue: \(pendingOperations.filtrationQueue.operationCount)")
+        }
+    }
+    
 }
 
 extension ImageViewController: UIScrollViewDelegate {
@@ -73,12 +119,16 @@ extension ImageViewController: UIScrollViewDelegate {
         scrollView.minimumZoomScale = min(widthScale, heightScale)
         scrollView.zoomScale = 1.0
     }
+    
 }
 
 extension ImageViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
-    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
+    func imagePickerController(_ picker: UIImagePickerController,
+                               didFinishPickingMediaWithInfo info: [String : Any]) {
+        
         photo.image = info[UIImagePickerControllerOriginalImage] as? UIImage
+        photo.state = .unfiltered
         imageView.image = photo.image
         imageView.contentMode = .scaleAspectFit
         self.setUpScrollView()
@@ -90,8 +140,10 @@ extension ImageViewController: UIImagePickerControllerDelegate, UINavigationCont
     }
     
     func selectImage() {
+        
         picker.allowsEditing = false
         picker.sourceType = .photoLibrary
         present(picker, animated: true, completion: nil)
     }
+    
 }
