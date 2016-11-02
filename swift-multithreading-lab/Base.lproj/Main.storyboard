@@ -37,6 +37,7 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="antiqueButton" destination="NvH-aY-rNL" id="num-oo-WkT"/>
                         <outlet property="chooseImageButton" destination="yIX-rM-yQs" id="xMB-6c-sNP"/>
                     </connections>
                 </viewController>

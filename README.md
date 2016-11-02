@@ -8,20 +8,25 @@ To that end you can use multithreading to run heavy processes off the main threa
 
 ![Multithreading](https://raw.githubusercontent.com/JGLaferte/Multi-Threading/master/AshycMultiThreadingProject/Img/MultiThreading.gif)
 
-The image above shows three things. First, on the left, you see a representation of a synchronous process being run on a single thread of a processor. Second, on the right, is a representation of a synchronous process being run with multithreading. With more threads, the process on the right completes more quickly.
+The image above shows three things. First, on the left, you see a representation of a *synchronous* process being run on a single thread of a processor. Each green block, which represents an action, must complete before the next green block can be processed. Second, on the right, is a representation of a synchronous process being run with multithreading. With more threads, multiple green blocks can be processed at the same time and the process on the right completes more quickly.
 
-The third concept illustrated by this animation is the larger picture of these two processes being run simultaneously. These processes are running *asynchronously*. The speed or completion of one does not rely on the speed or completion of the other.
+The third concept illustrated by this animation is the larger picture of these two processes being run simultaneously. These processes are running *asynchronously*, which means the speed or completion of one process does not rely on the speed or completion of the other.
 
-In this lab you will fix a broken photo filter app which hangs when the user tries to apply an "antique" filter.
+In this lab you will create a Flatigram app, which applies filters to images that a user can select from their photo library.
+
+![Flatirgram Demo](https://media.giphy.com/media/l3vQZmh2bjC9QLhxm/giphy.gif)
 
 ## Goals
 
 * When the `Antique` button is tapped, an activity indicator should be presented and animated to show the user some processing is going on. This activity indicator should stop when the image is filtered.
 * We also want to allow the user to continue to pan and zoom the image while the filtration occurs in the background.
+* When the camera button is tapped, the user should be able to select a photo from the device's photo library.
 
 ## Instructions
 
 There are some hints included in the following instructions. Try to complete each step step without the hints first, then look at the hints if you get stuck.
+
+### 
 
 ### Show an activity indicator
  
