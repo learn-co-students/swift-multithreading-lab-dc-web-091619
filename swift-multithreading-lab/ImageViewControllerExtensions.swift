@@ -91,7 +91,7 @@ extension ImageViewController: UIImagePickerControllerDelegate, UINavigationCont
     func imagePickerController(_ picker: UIImagePickerController,
                                didFinishPickingMediaWithInfo info: [String : Any]) {
         
-        photo.image = info[UIImagePickerControllerOriginalImage] as? UIImage
+        photo.image = info[UIImagePickerControllerOriginalImage] as! UIImage
         photo.state = .unfiltered
         imageView.image = photo.image
         imageView.contentMode = .scaleAspectFit

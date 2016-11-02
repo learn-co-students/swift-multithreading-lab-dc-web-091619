@@ -1,5 +1,5 @@
 //
-//  Image.swift
+//  FlatigramImage.swift
 //  swift-multithreading-lab
 //
 //  Created by Ian Rahman on 11/2/16.
@@ -10,11 +10,11 @@ import Foundation
 import UIKit
 
 
-// MARK: Image class
+// MARK: FlatigramImage class
 
-class Image {
+class FlatigramImage {
     var state = ImageState.unfiltered
-    var image = UIImage(named: "Placeholder")
+    var image = UIImage()
 }
 
 enum ImageState {
@@ -27,8 +27,8 @@ extension UIImage {
     
     func filter(with filter: String) -> UIImage? {
         
-        let coreImage = CIImage(data:UIImagePNGRepresentation(self)!)
-        let openGLContext = EAGLContext(api: .openGLES2)
+        let coreImage = CIImage(image: self)
+        let openGLContext = EAGLContext(api: .openGLES3)
         let context = CIContext(eaglContext: openGLContext!)
         let ciFilter = CIFilter(name: filter)
         ciFilter?.setValue(coreImage, forKey: kCIInputImageKey)

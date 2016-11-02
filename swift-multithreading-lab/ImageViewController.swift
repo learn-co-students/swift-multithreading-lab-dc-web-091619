@@ -17,7 +17,7 @@ class ImageViewController : UIViewController {
     
     var scrollView: UIScrollView!
     var imageView = UIImageView()
-    var photo = Image()
+    var photo = FlatigramImage()
     let picker = UIImagePickerController()
     var activityIndicator = UIActivityIndicatorView()
     let pendingOperations = PendingOperations()
@@ -103,8 +103,6 @@ extension ImageViewController {
             
             pendingOperations.filtrationInProgress = filterer
             pendingOperations.filtrationQueue.addOperation(filterer)
-            
-            print("Number of operations in filtrationQueue: \(pendingOperations.filtrationQueue.operationCount)")
         }
     }
     

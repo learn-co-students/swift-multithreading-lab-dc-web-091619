@@ -2,11 +2,11 @@
 
 Multithreading may seem esoteric and dense, but it's important in many situations that involve network calls or heavy processing. With so many apps in the App Store, the [user interface (UI) and user experience (UX)](https://www.usertesting.com/blog/2016/04/27/ui-vs-ux/) of your app must be as close to flawless as possible for it to stand out. You can hire a team of designers to create the most beautiful graphics for your photo filtering app, but it won't do any good if the whole thing suddenly freezes when a user attempts to process an image!
 
-![Bluto on Ice](https://media.giphy.com/media/mbDvYG4QfMoQo/giphy.gif "Don't freeze up!")
+[Bluto on Ice](https://media.giphy.com/media/mbDvYG4QfMoQo/giphy.gif "Don't freeze up!")
 
 To that end you can use multithreading to run heavy processes off the main thread of a device, thereby ensuring the user interface doesn't stutter and the user experience is maintained.
 
-![Multithreading](https://raw.githubusercontent.com/JGLaferte/Multi-Threading/master/AshycMultiThreadingProject/Img/MultiThreading.gif)
+[Multithreading](https://raw.githubusercontent.com/JGLaferte/Multi-Threading/master/AshycMultiThreadingProject/Img/MultiThreading.gif)
 
 The image above shows three things. First, on the left, you see a representation of a *synchronous* process being run on a single thread of a processor. Each green block, which represents an action, must complete before the next green block can be processed. Second, on the right, is a representation of a synchronous process being run with multithreading. With more threads, multiple green blocks can be processed at the same time and the process on the right completes more quickly.
 
@@ -14,7 +14,7 @@ The third concept illustrated by this animation is the larger picture of these t
 
 In this lab you will create a Flatigram app, which applies filters to images that a user can select from their photo library.
 
-![Flatirgram Demo](https://media.giphy.com/media/l3vQZmh2bjC9QLhxm/giphy.gif)
+[Flatirgram Demo](https://media.giphy.com/media/l3vQZmh2bjC9QLhxm/giphy.gif)
 
 ## Goals
 
@@ -24,9 +24,53 @@ In this lab you will create a Flatigram app, which applies filters to images tha
 
 ## Instructions
 
-There are some hints included in the following instructions. Try to complete each step step without the hints first, then look at the hints if you get stuck.
+There are some hints included in the following instructions. **Try to complete each step step without the hints first, then look at the hints only if you get stuck.**
 
-### 
+### Create a `FlatigramImage` class
+
+This class should have two properties: an `image` of type UIImage and a `state` of type ImageState.
+
+`ImageState` is an enumeration that doesn't yet exist. Create an enum with two cases: `filtered` and `unfiltered`.
+
+### Give images the ability to filter
+
+Write an extension for the `UIImage` class called `filter(with:)` that takes in a single `String` argument, which will be the name of the filter to apply. This function should return an optional `UIImage`.
+
+Inside this function you'll need to start by converting the `UIImage` to a `CIImage`. 
+
+```swift
+extension UIImage {
+    
+    func filter(with filter: String) -> UIImage? {
+        
+        let coreImage = CIImage(image: self)
+        let openGLContext = EAGLContext(api: .openGLES3)
+        let context = CIContext(eaglContext: openGLContext!)
+        let ciFilter = CIFilter(name: filter)
+        ciFilter?.setValue(coreImage, forKey: kCIInputImageKey)
+        
+        guard let coreImageOutput = ciFilter?.value(forKey: kCIOutputImageKey) as? CIImage else {
+            print("Could not unwrap output of CIFilter: \(filter)")
+            return nil
+        }
+        
+        let output = context.createCGImage(coreImageOutput, from: coreImageOutput.extent)
+        let result = UIImage(cgImage: output!)
+        
+        UIGraphicsBeginImageContextWithOptions(result.size, false, result.scale)
+        result.draw(at: CGPoint.zero)
+        guard let finalResult = UIGraphicsGetImageFromCurrentImageContext() else {
+            print("Could not save final UIImage")
+            return nil
+        }
+        
+        UIGraphicsEndImageContext()
+        
+        return finalResult
+    }
+    
+}
+```
 
 ### Show an activity indicator
  

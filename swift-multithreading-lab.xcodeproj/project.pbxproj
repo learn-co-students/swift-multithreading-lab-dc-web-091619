@@ -8,7 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		1B7E701B1D4A414800DC8364 /* ImageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B7E701A1D4A414800DC8364 /* ImageViewController.swift */; };
-		1B98ECA71DCA6E26008F7136 /* Image.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B98ECA61DCA6E26008F7136 /* Image.swift */; };
+		1B98ECA71DCA6E26008F7136 /* FlatigramImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B98ECA61DCA6E26008F7136 /* FlatigramImage.swift */; };
 		1BD309A81D4654E300A76984 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BD309A71D4654E300A76984 /* AppDelegate.swift */; };
 		1BD309AD1D4654E300A76984 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1BD309AB1D4654E300A76984 /* Main.storyboard */; };
 		1BD309AF1D4654E300A76984 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1BD309AE1D4654E300A76984 /* Assets.xcassets */; };
@@ -36,7 +36,7 @@
 
 /* Begin PBXFileReference section */
 		1B7E701A1D4A414800DC8364 /* ImageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageViewController.swift; sourceTree = "<group>"; };
-		1B98ECA61DCA6E26008F7136 /* Image.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Image.swift; sourceTree = "<group>"; };
+		1B98ECA61DCA6E26008F7136 /* FlatigramImage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FlatigramImage.swift; sourceTree = "<group>"; };
 		1BD309A41D4654E300A76984 /* swift-multithreading-lab.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "swift-multithreading-lab.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		1BD309A71D4654E300A76984 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		1BD309AC1D4654E300A76984 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -108,7 +108,7 @@
 			children = (
 				1B7E701A1D4A414800DC8364 /* ImageViewController.swift */,
 				1BFB76E91DC7BF8000F2EF36 /* ImageViewControllerExtensions.swift */,
-				1B98ECA61DCA6E26008F7136 /* Image.swift */,
+				1B98ECA61DCA6E26008F7136 /* FlatigramImage.swift */,
 				1BFB76EB1DC8DF3E00F2EF36 /* ImageOperations.swift */,
 				1BD309AB1D4654E300A76984 /* Main.storyboard */,
 				1BC0A3F11D50FE3900A04E3B /* Resources */,
@@ -254,7 +254,7 @@
 				1BFB76EA1DC7BF8000F2EF36 /* ImageViewControllerExtensions.swift in Sources */,
 				1BD309A81D4654E300A76984 /* AppDelegate.swift in Sources */,
 				1BFB76EC1DC8DF3E00F2EF36 /* ImageOperations.swift in Sources */,
-				1B98ECA71DCA6E26008F7136 /* Image.swift in Sources */,
+				1B98ECA71DCA6E26008F7136 /* FlatigramImage.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -11,18 +11,18 @@ import UIKit
 
 class FilterOperation: Operation {
     
-    let image: Image
+    let fImage: FlatigramImage
     let filter: String
     
-    init(image: Image, filter: String) {
-        self.image = image
+    init(image: FlatigramImage, filter: String) {
+        self.fImage = image
         self.filter = filter
     }
     
     override func main () {
         
-        if let filteredImage = self.image.image?.filter(with: filter) {
-            self.image.image = filteredImage
+        if let filteredImage = self.fImage.image.filter(with: filter) {
+            self.fImage.image = filteredImage
         }
     }
     
