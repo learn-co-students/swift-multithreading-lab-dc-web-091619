@@ -10,11 +10,11 @@ import Foundation
 import UIKit
 
 
-// MARK: FlatigramImage class
+// MARK: Flatigram class
 
 class Flatigram {
-    var state = ImageState.unfiltered
     var image: UIImage?
+    var state = ImageState.unfiltered
 }
 
 enum ImageState {

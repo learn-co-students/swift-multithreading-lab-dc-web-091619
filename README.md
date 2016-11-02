@@ -24,13 +24,13 @@ In this lab you will create a Flatigram app, which applies filters to images tha
 
 ## Instructions
 
-There are some hints included in the following instructions. **Try to complete each step step without the hints first, then look at the hints only if you get stuck.**
+There are some hints included in the following instructions. **Try to complete each step step without the hints first, then look at the hints only if you get stuck.** Remember, the struggle of solving a problem is far more valuable than copying and pasting a solution.
 
-### Create a `FlatigramImage` class
+### Create a `Flatigram` class
 
-This class should have two properties: an `image` of type UIImage and a `state` of type ImageState.
+This class should have two properties: an `image` of optional type UIImage? and a `state` of type ImageState. Setting `image` to be an optional allows us to create an instance of a `Flatigram` without having to worry whether we have an image ready.
 
-`ImageState` is an enumeration that doesn't yet exist. Create an enum with two cases: `filtered` and `unfiltered`. Go back to 
+ImageState is an enumeration that doesn't yet exist. Create an enum with two cases: `filtered` and `unfiltered`. Since any new Flatigram we create won't have been filtered yet, go back to the Flatigram class and set the default value of `state` to `unfiltered`.
 
 ### Give images the ability to filter
 
@@ -38,39 +38,7 @@ Write an extension for the `UIImage` class called `filter(with:)` that takes in 
 
 Inside this function you'll need to start by converting the `UIImage` to a `CIImage`. 
 
-```swift
-extension UIImage {
-    
-    func filter(with filter: String) -> UIImage? {
-        
-        let coreImage = CIImage(image: self)
-        let openGLContext = EAGLContext(api: .openGLES3)
-        let context = CIContext(eaglContext: openGLContext!)
-        let ciFilter = CIFilter(name: filter)
-        ciFilter?.setValue(coreImage, forKey: kCIInputImageKey)
-        
-        guard let coreImageOutput = ciFilter?.value(forKey: kCIOutputImageKey) as? CIImage else {
-            print("Could not unwrap output of CIFilter: \(filter)")
-            return nil
-        }
-        
-        let output = context.createCGImage(coreImageOutput, from: coreImageOutput.extent)
-        let result = UIImage(cgImage: output!)
-        
-        UIGraphicsBeginImageContextWithOptions(result.size, false, result.scale)
-        result.draw(at: CGPoint.zero)
-        guard let finalResult = UIGraphicsGetImageFromCurrentImageContext() else {
-            print("Could not save final UIImage")
-            return nil
-        }
-        
-        UIGraphicsEndImageContext()
-        
-        return finalResult
-    }
-    
-}
-```
+[Hint: Image Filtering](#Filtering)
 
 ### Show an activity indicator
  
@@ -113,6 +81,45 @@ activityIndicator.stopAnimating()   // Hides and stops the activity indicator
 * Add a camera button to the nav bar which presents an alert asking if the user wants to load a photo from the library or take a photo with the camera. In either case, the new photo should be loaded into the Flatigram app, ready for antiquing.
 * Figure out a way to cache filtered images so if they've already been filtered, the filtered version is loaded right away upon selecting that photo.
 * Add the ability to cancel a filter operation midway.
+
+
+### Hints
+
+#### Filtering
+
+```swift
+extension UIImage {
+    
+    func filter(with filter: String) -> UIImage? {
+        
+        let coreImage = CIImage(image: self)
+        let openGLContext = EAGLContext(api: .openGLES3)
+        let context = CIContext(eaglContext: openGLContext!)
+        let ciFilter = CIFilter(name: filter)
+        ciFilter?.setValue(coreImage, forKey: kCIInputImageKey)
+        
+        guard let coreImageOutput = ciFilter?.value(forKey: kCIOutputImageKey) as? CIImage else {
+            print("Could not unwrap output of CIFilter: \(filter)")
+            return nil
+        }
+        
+        let output = context.createCGImage(coreImageOutput, from: coreImageOutput.extent)
+        let result = UIImage(cgImage: output!)
+        
+        UIGraphicsBeginImageContextWithOptions(result.size, false, result.scale)
+        result.draw(at: CGPoint.zero)
+        guard let finalResult = UIGraphicsGetImageFromCurrentImageContext() else {
+            print("Could not save final UIImage")
+            return nil
+        }
+        
+        UIGraphicsEndImageContext()
+        
+        return finalResult
+    }
+    
+}
+```
 
 
 <p data-visibility='hidden'>View <a href='https://learn.co/lessons/swift-multithreading-lab' title='Multithreading in Swift'>Multithreading in Swift</a> on Learn.co and start learning to code for free.</p>
