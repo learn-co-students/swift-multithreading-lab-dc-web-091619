@@ -39,6 +39,12 @@ class ImageViewController : UIViewController {
     }
     
     @IBAction func filterButtonTapped(_ sender: AnyObject) {
+//        for filter in filtersToApply {
+//            DispatchQueue.main.async {
+//                self.imageView.image = self.flatigram.image?.filter(with: filter)
+//                print("filter applied!")
+//            }
+//        }
         switch (flatigram.state) {
         case .unfiltered:
             startProcess()
@@ -74,7 +80,7 @@ extension ImageViewController {
         }
     }
     
-    func filterImage(_ completion: @escaping (Bool) -> ()) {
+    func filterImage(with completion: @escaping (Bool) -> ()) {
         
         guard !pendingOperations.filtrationInProgress.isExecuting else { completion(false); return }
         
@@ -98,6 +104,7 @@ extension ImageViewController {
             
             pendingOperations.filtrationInProgress = filterer
             pendingOperations.filtrationQueue.addOperation(filterer)
+            print("Added FilterOperation with \(filter) to \(pendingOperations.filtrationQueue.name!)")
         }
     }
     

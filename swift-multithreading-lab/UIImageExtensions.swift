@@ -11,7 +11,7 @@ import UIKit
 
 
 // MARK: UIImage filtering extension
-
+// TODO: Create a shared context for all filter applications
 extension UIImage {
     
     func filter(with filter: String) -> UIImage? {
@@ -35,7 +35,9 @@ extension UIImage {
         guard let finalResult = UIGraphicsGetImageFromCurrentImageContext() else { print("Could not save final UIImage"); return nil }
         
         UIGraphicsEndImageContext()
-
+        
+        print("\(filter) applied to image")
+        
         return finalResult
         
     }

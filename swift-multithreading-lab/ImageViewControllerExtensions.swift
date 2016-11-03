@@ -37,9 +37,10 @@ extension ImageViewController {
         } else {
             guard let bull = UIImage(named: "bull") else { return }
             flatigram.image = bull
-            imageView = UIImageView(image: flatigram.image)
+            imageView = UIImageView(image: bull)
             scrollView.contentOffset = CGPoint(x: bull.size.width/2, y: bull.size.height/2)
         }
+        
         scrollView.contentSize = imageView.bounds.size
         setZoomScale()
     }
