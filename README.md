@@ -117,10 +117,7 @@ In the completion block for `filterImage(with:)`, print out the result from `fil
 
 ## Conclusion
 
-Great job! You've just implemented:
-
-* Operation subclassing
-* OperationQueue
+Great job! You've just subclassed `Operation` and made use of a customized `OperationQueue` to prevent UI elements from freezing. This also left open the possibility for you to increase your app's performance by upping the number of concurrent threads allowed in your `queue`. Play around and see what you can achieve!
 
 ### Advice
 
@@ -128,8 +125,7 @@ Now that you've seen how multithreading works with `Operation` subclassing and a
 
 ### Advanced
 
-* Play around with other filters and see what you can create! Here's a [list of all available CIFilters](https://developer.apple.com/library/mac/documentation/GraphicsImaging/Reference/CoreImageFilterReference/index.html) to get you started.
-* Add a camera button to the nav bar which presents an alert asking if the user wants to load a photo from the library or take a photo with the camera. In either case, the new photo should be loaded into the Flatigram app, ready for antiquing.
+* Play around with other filters and see what you can create. Here's a [list of all available CIFilters](https://developer.apple.com/library/mac/documentation/GraphicsImaging/Reference/CoreImageFilterReference/index.html) to get you started.
 * Figure out a way to cache filtered images so if they've already been filtered, the filtered version is loaded right away upon selecting that photo.
 * Add the ability to cancel a filter operation midway.
 
