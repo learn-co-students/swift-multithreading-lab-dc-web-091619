@@ -1,11 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11542" systemVersion="16B2555" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="oHO-h2-LWp">
-    <device id="retina4_7" orientation="portrait">
-        <adaptation id="fullscreen"/>
-    </device>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11201" systemVersion="16A323" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="oHO-h2-LWp">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11524"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11161"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -29,16 +26,16 @@
                                 <action selector="cameraButtonTapped:" destination="GqE-4z-MaU" id="3hu-uX-XPZ"/>
                             </connections>
                         </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" title="Antique" id="NvH-aY-rNL">
+                        <barButtonItem key="rightBarButtonItem" title="Filter" id="NvH-aY-rNL">
                             <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <connections>
-                                <action selector="antiqueButtonTapped:" destination="GqE-4z-MaU" id="HAu-sw-Iv8"/>
+                                <action selector="filterButtonTapped:" destination="GqE-4z-MaU" id="0K0-Mb-6Fp"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
                     <connections>
-                        <outlet property="antiqueButton" destination="NvH-aY-rNL" id="num-oo-WkT"/>
                         <outlet property="chooseImageButton" destination="yIX-rM-yQs" id="xMB-6c-sNP"/>
+                        <outlet property="filterButton" destination="NvH-aY-rNL" id="W7S-XR-jkK"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ROA-Q9-xs8" userLabel="First Responder" sceneMemberID="firstResponder"/>

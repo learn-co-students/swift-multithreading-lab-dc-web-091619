@@ -21,10 +21,12 @@ class ImageViewController : UIViewController {
     let picker = UIImagePickerController()
     var activityIndicator = UIActivityIndicatorView()
     let pendingOperations = PendingOperations()
-    let filtersToApply = ["CISepiaTone",
+    let filtersToApply = ["CIBloom",
+                          "CIPhotoEffectProcess",
                           "CIExposureAdjust"]
+
     
-    @IBOutlet weak var antiqueButton: UIBarButtonItem!
+    @IBOutlet weak var filterButton: UIBarButtonItem!
     @IBOutlet weak var chooseImageButton: UIBarButtonItem!
     
     override func viewDidLoad() {
@@ -37,7 +39,7 @@ class ImageViewController : UIViewController {
         selectImage()
     }
     
-    @IBAction func antiqueButtonTapped(_ sender: AnyObject) {
+    @IBAction func filterButtonTapped(_ sender: AnyObject) {
         switch (flatigram.state) {
         case .unfiltered:
             startProcess()
@@ -64,7 +66,7 @@ extension ImageViewController {
     func startProcess() {
         
         activityIndicator.startAnimating()
-        antiqueButton.isEnabled = false
+        filterButton.isEnabled = false
         chooseImageButton.isEnabled = false
         
         filterImage { result in
@@ -73,7 +75,7 @@ extension ImageViewController {
                 result ? print("Image successfully filtered") : print("Image filtering did not complete")
                 self.imageView.image = self.flatigram.image
                 self.activityIndicator.stopAnimating()
-                self.antiqueButton.isEnabled = true
+                self.filterButton.isEnabled = true
                 self.chooseImageButton.isEnabled = true
             }
         }

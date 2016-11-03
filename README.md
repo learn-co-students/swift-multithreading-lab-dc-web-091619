@@ -18,7 +18,7 @@ In this lab you will create a Flatigram app, which applies filters to images tha
 
 ## Goals
 
-* When the `Antique` button is tapped, an activity indicator should be presented and animated to show the user some processing is going on. This activity indicator should stop when the image is filtered.
+* When the `Filter` button is tapped, an activity indicator should be presented and animated to show the user some processing is going on. This activity indicator should stop when the image is filtered.
 * We also want to allow the user to continue to pan and zoom the image while the filtration occurs in the background.
 * When the camera button is tapped, the user should be able to select a photo from the device's photo library.
 
@@ -28,13 +28,15 @@ There are some hints included in the following instructions. **Try to complete e
 
 ### Create a `Flatigram` class
 
-This class should have two properties: an `image` of optional type UIImage? and a `state` of type ImageState. Setting `image` to be an optional allows us to create an instance of a `Flatigram` without having to worry whether we have an image ready.
+Create a new `.swift` file to contain a new class called `Flatigram`.
 
-ImageState is an enumeration that doesn't yet exist. Create an enum with two cases: `filtered` and `unfiltered`. Since any new Flatigram we create won't have been filtered yet, go back to the Flatigram class and set the default value of `state` to `unfiltered`.
+This class should have two properties: an `image` of type `UIImage?` and a `state` of type `ImageState`. Setting `image` to be an optional allows us to create an instance of `Flatigram` without having to worry whether we have an image ready.
 
-### Give images the ability to filter
+`ImageState` is an enumeration that doesn't yet exist. Create an enum with two cases: `filtered` and `unfiltered`. Since any new `Flatigram` we create won't have been filtered yet, go back to the `Flatigram` class and set the default value of `state` to `unfiltered`.
 
-Write an extension for the `UIImage` class called `filter(with:)` that takes in a single `String` argument, which will be the name of the filter to apply. This function should return an optional `UIImage`.
+### Add an extension on `UIImage`
+
+Add another `.swift` file called `UIImageExtensions`. Inside, write an extension for the `UIImage` class called `filter(with:)` that takes in a single `String` argument. This argument will be the name of the filter to apply. The function should return a `UIImage?`.
 
 Inside this function you'll need to start by converting the `UIImage` to a `CIImage`. 
 
@@ -56,7 +58,7 @@ view.addSubview(activityIndicator)
 
 > Here we instantiate a `UIActivityIndicatorView` object for the property we just created with the stile of `.whiteLarge`. We then tint the indicator so it fits the theme of our app, and finally align it with the main view.
 
-* If you run the app now and hit `Antique`, you'll see the activity indicator still doesn't appear. We're not done yet! The `UIActivityIndicatorView` has been created, but hasn't been added to the superview. Do this with . This adds our `activityIndicator` to the view controller's `view`.
+* If you run the app now and hit `Filter`, you'll see the activity indicator still doesn't appear. We're not done yet! The `UIActivityIndicatorView` has been created, but hasn't been added to the superview. Do this with . This adds our `activityIndicator` to the view controller's `view`.
 * The last step we need to make our `activityIndicator` visible is to call it to start. Use the following lines to start and stop the indicator, respectively:
 
 ```swift
@@ -64,13 +66,13 @@ activityIndicator.startAnimating()  // Presents and starts the activity indicato
 activityIndicator.stopAnimating()   // Hides and stops the activity indicator
 ```
 
-* Add just the `startAnimating` line to your `viewDidLoad` and run your app. You should see a blue spinning activity indicator. We don't want the indicator to start as soon as the app opens, though, and we don't want it to keep going after the image has been filtered. Let's move this start function call to the `antiqueButtonTapped` function ahead of the call to `filterImage`.
-* Uh oh! If you run the app now and tap `Antique` you'll see that the activity indicator doesn't appear until after the image has finished filtering. Try to add the `stopAnimating` call on the `activityIndicator` to the completion block for the call to `filterImage`. Now the indicator never shows!
+* Add just the `startAnimating` line to your `viewDidLoad` and run your app. You should see a blue spinning activity indicator. We don't want the indicator to start as soon as the app opens, though, and we don't want it to keep going after the image has been filtered. Let's move this start function call to the `FilterButtonTapped` function ahead of the call to `filterImage`.
+* Uh oh! If you run the app now and tap `Filter` you'll see that the activity indicator doesn't appear until after the image has finished filtering. Try to add the `stopAnimating` call on the `activityIndicator` to the completion block for the call to `filterImage`. Now the indicator never shows!
 * It looks like the filtering process is blocking the indicator, so we'll have to move the filtering to a different thread.
 
 ### Allow for user interaction during filtering
 
-* Create a new `NSOperationQueue` in `antiqueButtonTapped` and set its `qualityOfService` to `.userInitiated`. Next, move into this block the call to the `filterImage` function and its completion block, which prints based on the result. The `qualityOfService` parameter, futher discussed in [Apple's documentation](https://developer.apple.com/library/content/documentation/Performance/Conceptual/EnergyGuide-iOS/PrioritizeWorkWithQoS.html#//apple_ref/doc/uid/TP40015243-CH39-SW1), is used to ensure the correct priority for system resources is given to the passed-in block of code.
+* Create a new `OperationQueue` in `FilterButtonTapped` and set its `qualityOfService` to `.userInitiated`. Next, move into this block the call to the `filterImage` function and its completion block, which prints based on the result. The `qualityOfService` parameter, futher discussed in [Apple's documentation](https://developer.apple.com/library/content/documentation/Performance/Conceptual/EnergyGuide-iOS/PrioritizeWorkWithQoS.html#//apple_ref/doc/uid/TP40015243-CH39-SW1), is used to ensure the correct priority for system resources is given to the passed-in block of code.
 * Inside the completion block of the call to `filterImage`, add a new operation block on the `mainQueue` which will wrap the previous contents of the completion block. This ensures that when `filterImage` has completed and returned, the activity indicator's status will be updated on the main thread.
 * We still need to update the `imageView` in the main thread. Look for the line in `filterImage` where we print out "Setting final result". Add a `mainQueue` operation block and insert the two lines where we set the `imageView`'s `image` to `finalResult` and return `true` to the completion block.
 * Now everything should work as expected and the user will never be left *hanging* for a filtering process! 😉
@@ -82,7 +84,6 @@ activityIndicator.stopAnimating()   // Hides and stops the activity indicator
 * Figure out a way to cache filtered images so if they've already been filtered, the filtered version is loaded right away upon selecting that photo.
 * Add the ability to cancel a filter operation midway.
 
-
 ## Hints
 
 ### Image Filtering
@@ -91,6 +92,8 @@ activityIndicator.stopAnimating()   // Hides and stops the activity indicator
 extension UIImage {
     
     func filter(with filter: String) -> UIImage? {
+        
+        UIGraphicsBeginImageContext(self.size)
         
         let coreImage = CIImage(image: self)
         let openGLContext = EAGLContext(api: .openGLES3)
@@ -106,8 +109,8 @@ extension UIImage {
         let output = context.createCGImage(coreImageOutput, from: coreImageOutput.extent)
         let result = UIImage(cgImage: output!)
         
-        UIGraphicsBeginImageContextWithOptions(result.size, false, result.scale)
         result.draw(at: CGPoint.zero)
+        
         guard let finalResult = UIGraphicsGetImageFromCurrentImageContext() else {
             print("Could not save final UIImage")
             return nil
