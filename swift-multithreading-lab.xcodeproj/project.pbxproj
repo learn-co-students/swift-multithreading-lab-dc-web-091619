@@ -15,7 +15,7 @@
 		1BD309AF1D4654E300A76984 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1BD309AE1D4654E300A76984 /* Assets.xcassets */; };
 		1BD309B21D4654E300A76984 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1BD309B01D4654E300A76984 /* LaunchScreen.storyboard */; };
 		1BFB76EA1DC7BF8000F2EF36 /* ImageViewControllerExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BFB76E91DC7BF8000F2EF36 /* ImageViewControllerExtensions.swift */; };
-		1BFB76EC1DC8DF3E00F2EF36 /* ImageOperations.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BFB76EB1DC8DF3E00F2EF36 /* ImageOperations.swift */; };
+		1BFB76EC1DC8DF3E00F2EF36 /* ImageOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BFB76EB1DC8DF3E00F2EF36 /* ImageOperation.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -48,7 +48,7 @@
 		1BD309B81D4654E300A76984 /* swift-multithreading-labTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "swift-multithreading-labTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		1BD309C31D4654E300A76984 /* swift-multithreading-labUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "swift-multithreading-labUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		1BFB76E91DC7BF8000F2EF36 /* ImageViewControllerExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageViewControllerExtensions.swift; sourceTree = "<group>"; };
-		1BFB76EB1DC8DF3E00F2EF36 /* ImageOperations.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageOperations.swift; sourceTree = "<group>"; };
+		1BFB76EB1DC8DF3E00F2EF36 /* ImageOperation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageOperation.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -111,7 +111,7 @@
 				1B7E701A1D4A414800DC8364 /* ImageViewController.swift */,
 				1BFB76E91DC7BF8000F2EF36 /* ImageViewControllerExtensions.swift */,
 				1B98ECA61DCA6E26008F7136 /* Flatigram.swift */,
-				1BFB76EB1DC8DF3E00F2EF36 /* ImageOperations.swift */,
+				1BFB76EB1DC8DF3E00F2EF36 /* ImageOperation.swift */,
 				1B98ECA81DCA920D008F7136 /* UIImageExtensions.swift */,
 				1BD309AB1D4654E300A76984 /* Main.storyboard */,
 				1BC0A3F11D50FE3900A04E3B /* Resources */,
@@ -257,7 +257,7 @@
 				1BFB76EA1DC7BF8000F2EF36 /* ImageViewControllerExtensions.swift in Sources */,
 				1BD309A81D4654E300A76984 /* AppDelegate.swift in Sources */,
 				1B98ECA91DCA920D008F7136 /* UIImageExtensions.swift in Sources */,
-				1BFB76EC1DC8DF3E00F2EF36 /* ImageOperations.swift in Sources */,
+				1BFB76EC1DC8DF3E00F2EF36 /* ImageOperation.swift in Sources */,
 				1B98ECA71DCA6E26008F7136 /* Flatigram.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

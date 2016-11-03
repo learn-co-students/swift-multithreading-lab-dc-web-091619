@@ -1,4 +1,4 @@
-# Multithreading with Image Filtering in Swift
+# Flatigram: Multithreading with Image Filtering in Swift
 
 Multithreading may seem esoteric and dense, but it's important in many situations that involve network calls or heavy processing. With so many apps in the App Store, the [user interface (UI) and user experience (UX)](https://www.usertesting.com/blog/2016/04/27/ui-vs-ux/) of your app must be as close to flawless as possible for it to stand out. You can hire a team of designers to create the most beautiful graphics for your photo filtering app, but it won't do any good if the whole thing suddenly freezes when a user attempts to process an image!
 
@@ -36,13 +36,13 @@ This class should have two properties: an `image` of type `UIImage?` and a `stat
 
 `ImageState` is an enumeration that doesn't yet exist. Create an enum with two cases: `filtered` and `unfiltered`. Since any new `Flatigram` we create won't have been filtered yet, go back to the `Flatigram` class and set the default value of `state` to `unfiltered`.
 
-### Setting up the `ImageViewController`
+### Set up the `ImageViewController`
 
 Cool, you've got your custom class set up. Now let's go back to the `ImageViewController` where you should add a new property called `flatigram` that has a default value of `Flatigram()`. But nothing is happening to the image yet. Let's fix that by performing some actions when the `filterButton` is tapped.
 
-First, to keep your code clean, create an extension for the `ImageViewController` at the bottom of this file. In this extension, add a function called `filterImage(with:)` that takes a completion block as its only argument. This completion block should accept a `Bool` and return nothing. Call `filterImage(with)` from `filterButtonTapped`, which has already been set up for you.
+First, to keep your code clean, create an extension for the `ImageViewController` at the bottom of this file. In this extension, add a function called `filterImage(with:)` that takes a completion block as its only argument. This completion block should accept a `Bool` and return nothing. Call `filterImage(with)` from `filterButtonTapped(_:)`, which has already been set up for you.
 
-Inside `filterImage(with:)`, you should now call on the special function called `filter(with:)` that was added in the `UIImage` extension. This function takes in a `String` — the name of the `CIFilter` to be applied to the image — and returns a filtered `UIImage`. As you can see in the `filtersToApply` property on `ImageViewController`, there are three filters which will need to be applied to the `flatirgram` image. Try to apply all these filters and see what happens.
+Inside `filterImage(with:)`, you should call on `filter(with:)`, which was added in the `UIImage` extension. This function takes in a `String` — the name of the `CIFilter` to be applied to the image — and returns a filtered `UIImage`. As you can see in the `filtersToApply` property on `ImageViewController`, there are three filters which will need to be applied to the `flatirgram` image. Try to apply all these filters with a `for` loop and see what happens.
 
 [Waiting](https://media.giphy.com/media/3o7TKxOhkp8gO0LXMI/giphy.gif)
 
@@ -60,30 +60,59 @@ CIExposureAdjust applied to image
 
 But the image looks the same! You may also have noticed that after tapping `Filter`, the image froze and was unable to be panned or zoomed. My oh my. Not a friendly experience.
 
-To sort these issues out we're going to need to move the image processing off the main thread. You're going to do this with two new classes: `FilterOperation` and `PendingOperations`.
+To sort these issues out we're going to need to move the image processing off the main thread. You're going to do this with a subclass of `Operation` and an `OperationQueue`.
 
-### Creating `ImageOperations`
+### Create `ImageOperation`
 
 Make a new `.swift` file called `ImageOperations`. Inside, create a new class called `FilterOperation`, which subclasses from `Operation`.
 
-`Operation`s are single-use containers for tasks. An instance of an `Operation` subclass gives you the opportunity to run code synchronously or asynchronously when used in an `OperationQueue`. These queues are super neat and understanding how to use them is a powerful tool on your toolbelt as a developer.
+`Operation`s are single-use containers for tasks. An instance of an `Operation` subclass gives you the opportunity to run code synchronously or asynchronously when used in an `OperationQueue`. These queues are extremely useful when used appropriately, and understanding how to use them is a powerful tool on your toolbelt as a developer.
 
 You can create multiple queues with different properties, such as a `name`, `qualityOfService`, and `maxConcurrentOperationCount`. These are the three properties you'll set in a few moments.
 
-The `name` is just as it seems — the name of the queue. The `qualityOfService` determines the 
-
-
-**HOW DO WE INCREASE THE PRIORITY OF A PARTICULAR TASK? SHOULD THIS BE SHOWN?**
+The `name` is just as it seems — the name of the queue. The `qualityOfService` determines the priority an operation will receive for use of system resources. Higher priority means more resources. Lastly, `maxConcurrentOperationCount` defines how many operations on the queue can be processed at the same time. You can add dependencies to your operations, which guarantee those tasks are processed in a particular order, but here you'll use `maxConcurrentOperationCount` to achieve that same goal. (Don't set this property if you want to use the maximum number of threads available. This might increase performance, but it will also consume system resources.)
 
 There's a ton of useful information on how `Operation`s and `OperationQueue`s work in the Apple Reference Docs. `option` + `click` on the class names and [you'll get this](#operation-and-operationqueue).
 
+Okay. That's a lot of theory, and not all of it may make sense at first. That's okay. Stand up, do some stretches, then let's make it all come together.
 
+![Stretchy Cat](https://media.giphy.com/media/WUuSHzgWLsZMs/giphy.gif)
 
+Cool. Now add two properites to `FilterOperation`: `flatigram` of type `Flatigram`, and `filter` of type `String`. Instead of giving these default values, create an initializer that takes in a `Flatigram` and `String` argument which are then mapped to their respective properties.
 
+Next, override the `main()` function of `Operation`. This is where the magic happens. Add code here to `filter(with:)` the `image` property of the `flatigram` connected to the `FilterOperation` and it will be run when the operation is processed.
 
-Next, create a class called `PendingOperations`.
+Don't let this seem intimidating! When this operation is run, the `main()` function will get called automatically. As soon as it does, the image will be run through the filter function in the `UIImage` extension.
 
+[Hint: Image Operation](#image-operation)
 
+### Finish `filterImage(with:)`
+
+Head back to your `ImageViewController` and the `filterImage(with:)` function. At its top, create a new instance of `OperationQueue` called `queue` and set its properties as follows:
+
+* `name`: "Image Filtration Queue"
+* `qualityOfService`: .userInitiated
+* `maxConcurrentOperationCount`: 1
+
+We now have a wrapper for the code we want to queue up, plus a custom queue in which to put it. In this same function, add a `FilterOperation` to the `OperationQueue` for each filter listed in the array of `filtersToApply` and set the `completionBlock` of each operation to evaluate the queue's `operationCount`. If the queue is empty, set `flatigram`'s `state` to `.filtered` and call the completion block to announce the operations have finished and the filters have been applied.
+
+After the operation has been added to the queue, add the following line of code:
+
+```swift
+print("Added FilterOperation with \(filter) to \(queue.name!)")
+```
+
+This will help illustrate the order of operations taking place.
+
+[Hint: Filter Image](#filter-image)
+
+### `startProcess()`
+
+Create a new function in the extension for `ImageViewController` named `startProcess()`, which returns nothing. Take the call to `filterImage(with:)` out of `filterButtonTapped(_)` and put it in `startProcess()`. When the `Filter` button is tapped, `startProcess()` should be called.
+
+`startProcess()` should disable the `filterButton` and `chooseImageButton`, then call the provided `activityIndicator` to start. In the completion block 
+
+[Hint: Start Process](#start-process)
 
 ### Show an activity indicator
  
@@ -140,6 +169,92 @@ You might start off looping through your filters like this:
 ```swift
 for filter in filtersToApply {
     imageView.image = flatigram.image?.filter(with: filter)
+}
+```
+
+### Image Operation
+
+```swift
+class FilterOperation: Operation {
+    
+    let flatigram: Flatigram
+    let filter: String
+    
+    init(flatigram: Flatigram, filter: String) {
+        self.flatigram = flatigram
+        self.filter = filter
+    }
+    
+    override func main() {
+        
+        if let filteredImage = self.flatigram.image?.filter(with: filter) {
+            self.flatigram.image = filteredImage
+        }
+    }
+    
+}
+```
+
+```swift
+var queue = OperationQueue()
+queue.name = "Image Filtration queue"
+queue.maxConcurrentOperationCount = 1
+queue.qualityOfService = .userInitiated
+```
+
+### Filter Image
+
+```swift
+func filterImage(with completion: @escaping (Bool) -> ()) {
+        
+    let queue = OperationQueue()
+    queue.name = "Image Filtration queue"
+    queue.maxConcurrentOperationCount = 1
+    queue.qualityOfService = .userInitiated
+    
+    for filter in filtersToApply {
+        
+        let filterer = FilterOperation(flatigram: flatigram, filter: filter)
+        filterer.completionBlock = {
+            
+            if filterer.isCancelled {
+                completion(false)
+                return
+            }
+            
+            if queue.operationCount == 0 {
+                DispatchQueue.main.async(execute: {
+                    self.flatigram.state = .filtered
+                    completion(true)
+                })
+            }
+        }
+        
+        queue.addOperation(filterer)
+        print("Added FilterOperation with \(filter) to \(queue.name!)")
+    }
+}
+```
+
+### Start Process
+
+```swift
+func startProcess() {
+        
+    activityIndicator.startAnimating()
+    filterButton.isEnabled = false
+    chooseImageButton.isEnabled = false
+    
+    filterImage { result in
+        
+        OperationQueue.main.addOperation {
+            result ? print("Image successfully filtered") : print("Image filtering did not complete")
+            self.imageView.image = self.flatigram.image
+            self.activityIndicator.stopAnimating()
+            self.filterButton.isEnabled = true
+            self.chooseImageButton.isEnabled = true
+        }
+    }
 }
 ```
 

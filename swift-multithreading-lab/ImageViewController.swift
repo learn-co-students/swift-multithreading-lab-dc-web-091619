@@ -23,7 +23,6 @@ class ImageViewController : UIViewController {
                           "CIPhotoEffectProcess",
                           "CIExposureAdjust"]
     var flatigram = Flatigram()
-    let pendingOperations = PendingOperations()
     
     @IBOutlet weak var filterButton: UIBarButtonItem!
     @IBOutlet weak var chooseImageButton: UIBarButtonItem!
@@ -39,12 +38,7 @@ class ImageViewController : UIViewController {
     }
     
     @IBAction func filterButtonTapped(_ sender: AnyObject) {
-//        for filter in filtersToApply {
-//            DispatchQueue.main.async {
-//                self.imageView.image = self.flatigram.image?.filter(with: filter)
-//                print("filter applied!")
-//            }
-//        }
+        
         switch (flatigram.state) {
         case .unfiltered:
             startProcess()
@@ -82,7 +76,10 @@ extension ImageViewController {
     
     func filterImage(with completion: @escaping (Bool) -> ()) {
         
-        guard !pendingOperations.filtrationInProgress.isExecuting else { completion(false); return }
+        let queue = OperationQueue()
+        queue.name = "Image Filtration queue"
+        queue.maxConcurrentOperationCount = 1
+        queue.qualityOfService = .userInitiated
         
         for filter in filtersToApply {
             
@@ -94,17 +91,16 @@ extension ImageViewController {
                     return
                 }
                 
-                if self.pendingOperations.filtrationQueue.operationCount == 0 {
-                    DispatchQueue.main.async(execute: {
-                        self.flatigram.state = .filtered
-                        completion(true)
-                    })
+                if queue.operationCount == 0 {
+                    self.flatigram.state = .filtered
+                    completion(true)
                 }
+                
+
             }
             
-            pendingOperations.filtrationInProgress = filterer
-            pendingOperations.filtrationQueue.addOperation(filterer)
-            print("Added FilterOperation with \(filter) to \(pendingOperations.filtrationQueue.name!)")
+            queue.addOperation(filterer)
+            print("Added FilterOperation with \(filter) to \(queue.name!)")
         }
     }
     
