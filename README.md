@@ -18,9 +18,8 @@ In this lab you will create a Flatigram app, which applies filters to images tha
 
 ## Goals
 
-* When the `Filter` button is tapped, an activity indicator should be presented and animated to show the user some processing is going on. This activity indicator should stop when the image is filtered.
-* We also want to allow the user to continue to pan and zoom the image while the filtration occurs in the background.
-* When the camera button is tapped, the user should be able to select a photo from the device's photo library.
+* Subclass `Operation` and implement a customized `OperationQueue` to add multithreading capabilities to our code.
+
 
 ## Instructions
 
@@ -88,7 +87,7 @@ Don't let this seem intimidating! When this operation is run, the `main()` funct
 
 ### Finish `filterImage(with:)`
 
-Head back to your `ImageViewController` and the `filterImage(with:)` function. At its top, create a new instance of `OperationQueue` called `queue` and set its properties as follows:
+Head back to your `ImageViewController` and the `filterImage(with:)` function. At the top of the function, create a new instance of `OperationQueue` called `queue` and set its properties as follows:
 
 * `name`: "Image Filtration Queue"
 * `qualityOfService`: .userInitiated
@@ -110,44 +109,18 @@ This will help illustrate the order of operations taking place.
 
 Create a new function in the extension for `ImageViewController` named `startProcess()`, which returns nothing. Take the call to `filterImage(with:)` out of `filterButtonTapped(_)` and put it in `startProcess()`. When the `Filter` button is tapped, `startProcess()` should be called.
 
-`startProcess()` should disable the `filterButton` and `chooseImageButton`, then call the provided `activityIndicator` to start. In the completion block 
+`startProcess()` should disable the `filterButton` and `chooseImageButton`, then call the provided `activityIndicator` to start.
+
+In the completion block for `filterImage(with:)`, print out the result from `filterImage(with:)`, re-enable the buttons, stops the `activityIndicator`, and set the `imageView`'s `image` property to the `image` on `flatigram`.
 
 [Hint: Start Process](#start-process)
 
-### Show an activity indicator
- 
-* Add a `UIActivityIndicatorView` to the Flatirgram app. Instead of doing this in Interface Builder, add it programmatically.
-* Next, within the `setupViews` function in the `ImageViewController` extension, set up the activity indicator. Make the activity indicator `.cyan` and centered in the main view.
+## Conclusion
 
-> **Hint:** In the `ImageViewController` class, add a property called `activityIndicator` of type `UIActivityIndicatorView!`. Use the following code to set it up properly in the extension:
+Great job! You've just implemented:
 
-```swift
-activityIndicator = UIActivityIndicatorView(activityIndicatorStyle: .whiteLarge)
-activityIndicator.color = UIColor.cyan
-activityIndicator.center = view.center
-view.addSubview(activityIndicator)
-```
-
-> Here we instantiate a `UIActivityIndicatorView` object for the property we just created with the stile of `.whiteLarge`. We then tint the indicator so it fits the theme of our app, and finally align it with the main view.
-
-* If you run the app now and hit `Filter`, you'll see the activity indicator still doesn't appear. We're not done yet! The `UIActivityIndicatorView` has been created, but hasn't been added to the superview. Do this with . This adds our `activityIndicator` to the view controller's `view`.
-* The last step we need to make our `activityIndicator` visible is to call it to start. Use the following lines to start and stop the indicator, respectively:
-
-```swift
-activityIndicator.startAnimating()  // Presents and starts the activity indicator
-activityIndicator.stopAnimating()   // Hides and stops the activity indicator
-```
-
-* Add just the `startAnimating` line to your `viewDidLoad` and run your app. You should see a blue spinning activity indicator. We don't want the indicator to start as soon as the app opens, though, and we don't want it to keep going after the image has been filtered. Let's move this start function call to the `FilterButtonTapped` function ahead of the call to `filterImage`.
-* Uh oh! If you run the app now and tap `Filter` you'll see that the activity indicator doesn't appear until after the image has finished filtering. Try to add the `stopAnimating` call on the `activityIndicator` to the completion block for the call to `filterImage`. Now the indicator never shows!
-* It looks like the filtering process is blocking the indicator, so we'll have to move the filtering to a different thread.
-
-### Allow for user interaction during filtering
-
-* Create a new `OperationQueue` in `FilterButtonTapped` and set its `qualityOfService` to `.userInitiated`. Next, move into this block the call to the `filterImage` function and its completion block, which prints based on the result. The `qualityOfService` parameter, futher discussed in [Apple's documentation](https://developer.apple.com/library/content/documentation/Performance/Conceptual/EnergyGuide-iOS/PrioritizeWorkWithQoS.html#//apple_ref/doc/uid/TP40015243-CH39-SW1), is used to ensure the correct priority for system resources is given to the passed-in block of code.
-* Inside the completion block of the call to `filterImage`, add a new operation block on the `mainQueue` which will wrap the previous contents of the completion block. This ensures that when `filterImage` has completed and returned, the activity indicator's status will be updated on the main thread.
-* We still need to update the `imageView` in the main thread. Look for the line in `filterImage` where we print out "Setting final result". Add a `mainQueue` operation block and insert the two lines where we set the `imageView`'s `image` to `finalResult` and return `true` to the completion block.
-* Now everything should work as expected and the user will never be left *hanging* for a filtering process! 😉
+* Operation subclassing
+* OperationQueue
 
 ### Advice
 
@@ -194,6 +167,8 @@ class FilterOperation: Operation {
     
 }
 ```
+
+### Operation Queue
 
 ```swift
 var queue = OperationQueue()

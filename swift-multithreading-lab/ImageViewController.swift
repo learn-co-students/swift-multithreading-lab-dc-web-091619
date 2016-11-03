@@ -64,13 +64,11 @@ extension ImageViewController {
         
         filterImage { result in
             
-            OperationQueue.main.addOperation {
-                result ? print("Image successfully filtered") : print("Image filtering did not complete")
-                self.imageView.image = self.flatigram.image
-                self.activityIndicator.stopAnimating()
-                self.filterButton.isEnabled = true
-                self.chooseImageButton.isEnabled = true
-            }
+            result ? print("Image successfully filtered") : print("Image filtering did not complete")
+            self.imageView.image = self.flatigram.image
+            self.activityIndicator.stopAnimating()
+            self.filterButton.isEnabled = true
+            self.chooseImageButton.isEnabled = true
         }
     }
     
