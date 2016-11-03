@@ -111,8 +111,8 @@
 				1B7E701A1D4A414800DC8364 /* ImageViewController.swift */,
 				1BFB76E91DC7BF8000F2EF36 /* ImageViewControllerExtensions.swift */,
 				1B98ECA61DCA6E26008F7136 /* Flatigram.swift */,
-				1B98ECA81DCA920D008F7136 /* UIImageExtensions.swift */,
 				1BFB76EB1DC8DF3E00F2EF36 /* ImageOperations.swift */,
+				1B98ECA81DCA920D008F7136 /* UIImageExtensions.swift */,
 				1BD309AB1D4654E300A76984 /* Main.storyboard */,
 				1BC0A3F11D50FE3900A04E3B /* Resources */,
 			);

@@ -18,5 +18,5 @@ class Flatigram {
 }
 
 enum ImageState {
-    case unfiltered, filtered
+    case unfiltered, filtering, filtered
 }

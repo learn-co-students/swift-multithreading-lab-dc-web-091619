@@ -28,17 +28,17 @@ There are some hints included in the following instructions. **Try to complete e
 
 ### Create a `Flatigram` class
 
-Create a new `.swift` file to contain a new class called `Flatigram`.
+The images the Flatigram app processes are going to need to store more information than just the image itself. We don't want the user to repeatedly apply the same filter to an image, so you're going to create a new class called `Flatigram` which will store both the image to be filtered and the state of the image.
 
-This class should have two properties: an `image` of type `UIImage?` and a `state` of type `ImageState`. Setting `image` to be an optional allows us to create an instance of `Flatigram` without having to worry whether we have an image ready.
+Create a new `.swift` file to contain the new `Flatigram` class.
+
+This class should have two properties: an `image` of type `UIImage?` and a `state` of type `ImageState`. Setting `image` to be an optional allows us to create an instance of `Flatigram` without having to worry about whether we have an image ready.
 
 `ImageState` is an enumeration that doesn't yet exist. Create an enum with two cases: `filtered` and `unfiltered`. Since any new `Flatigram` we create won't have been filtered yet, go back to the `Flatigram` class and set the default value of `state` to `unfiltered`.
 
-### Add an extension on `UIImage`
+### ImageViewController
 
-Add another `.swift` file called `UIImageExtensions`. Inside, write an extension for the `UIImage` class called `filter(with:)` that takes in a single `String` argument. This argument will be the name of the filter to apply. The function should return a `UIImage?`.
-
-Inside this function you'll need to start by converting the `UIImage` to a `CIImage`. 
+Cool, you've got your custom class set up. Now let's go back to the `ImageViewController` where you should add a new property
 
 [Hint: Image Filtering](#image-filtering)
 
@@ -88,41 +88,7 @@ activityIndicator.stopAnimating()   // Hides and stops the activity indicator
 
 ### Image Filtering
 
-```swift
-extension UIImage {
-    
-    func filter(with filter: String) -> UIImage? {
-        
-        UIGraphicsBeginImageContext(self.size)
-        
-        let coreImage = CIImage(image: self)
-        let openGLContext = EAGLContext(api: .openGLES3)
-        let context = CIContext(eaglContext: openGLContext!)
-        let ciFilter = CIFilter(name: filter)
-        ciFilter?.setValue(coreImage, forKey: kCIInputImageKey)
-        
-        guard let coreImageOutput = ciFilter?.value(forKey: kCIOutputImageKey) as? CIImage else {
-            print("Could not unwrap output of CIFilter: \(filter)")
-            return nil
-        }
-        
-        let output = context.createCGImage(coreImageOutput, from: coreImageOutput.extent)
-        let result = UIImage(cgImage: output!)
-        
-        result.draw(at: CGPoint.zero)
-        
-        guard let finalResult = UIGraphicsGetImageFromCurrentImageContext() else {
-            print("Could not save final UIImage")
-            return nil
-        }
-        
-        UIGraphicsEndImageContext()
-        
-        return finalResult
-    }
-    
-}
-```
+
 
 
 <p data-visibility='hidden'>View <a href='https://learn.co/lessons/swift-multithreading-lab' title='Multithreading in Swift'>Multithreading in Swift</a> on Learn.co and start learning to code for free.</p>

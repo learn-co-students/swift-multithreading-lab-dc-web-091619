@@ -17,14 +17,13 @@ class ImageViewController : UIViewController {
     
     var scrollView: UIScrollView!
     var imageView = UIImageView()
-    var flatigram = Flatigram()
     let picker = UIImagePickerController()
     var activityIndicator = UIActivityIndicatorView()
-    let pendingOperations = PendingOperations()
     let filtersToApply = ["CIBloom",
                           "CIPhotoEffectProcess",
                           "CIExposureAdjust"]
-
+    var flatigram = Flatigram()
+    let pendingOperations = PendingOperations()
     
     @IBOutlet weak var filterButton: UIBarButtonItem!
     @IBOutlet weak var chooseImageButton: UIBarButtonItem!
@@ -43,17 +42,11 @@ class ImageViewController : UIViewController {
         switch (flatigram.state) {
         case .unfiltered:
             startProcess()
+        case .filtering:
+            print("nope")
         case .filtered:
             presentFilteredAlert()
         }
-    }
-    
-    func presentFilteredAlert() {
-        let alert = UIAlertController(title: "Uh oh!", message: "Image was already filtered", preferredStyle: .actionSheet)
-        let action = UIAlertAction(title: "Okay", style: .cancel, handler: nil)
-        alert.addAction(action)
-        present(alert, animated: true, completion: nil)
-        print("Image is already filtered")
     }
     
 }

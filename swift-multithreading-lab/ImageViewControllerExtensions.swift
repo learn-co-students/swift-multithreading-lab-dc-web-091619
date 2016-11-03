@@ -10,7 +10,7 @@ import Foundation
 import UIKit
 
 
-// MARK: View Setup
+// MARK: Views
 
 extension ImageViewController {
     
@@ -44,10 +44,18 @@ extension ImageViewController {
         setZoomScale()
     }
     
+    func presentFilteredAlert() {
+        let alert = UIAlertController(title: "Uh oh!", message: "Image was already filtered", preferredStyle: .actionSheet)
+        let action = UIAlertAction(title: "Okay", style: .cancel, handler: nil)
+        alert.addAction(action)
+        present(alert, animated: true, completion: nil)
+        print("Image is already filtered")
+    }
+    
 }
 
 
-// MARK: Scroll View
+// MARK: Scroll View Delegate
 
 extension ImageViewController: UIScrollViewDelegate {
     
@@ -84,7 +92,7 @@ extension ImageViewController: UIScrollViewDelegate {
 }
 
 
-// MARK: Image Picker
+// MARK: Image Picker Delegate
 
 extension ImageViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
