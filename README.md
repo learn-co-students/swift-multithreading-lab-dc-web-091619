@@ -15,6 +15,7 @@ The third concept illustrated by this animation is the larger picture of these t
 In this lab you will create a Flatigram app, which applies filters to images that a user can select from their photo library.
 
 ![Flatirgram Demo](https://media.giphy.com/media/l3vQZmh2bjC9QLhxm/giphy.gif)
+(The filter in this demo is different than what's in your project.)
 
 ## Goals
 
