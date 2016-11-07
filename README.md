@@ -2,11 +2,11 @@
 
 Multithreading may seem esoteric and dense, but it's important in many situations that involve network calls or heavy processing. With so many apps in the App Store, the [user interface (UI) and user experience (UX)](https://www.usertesting.com/blog/2016/04/27/ui-vs-ux/) of your app must be as close to flawless as possible for it to stand out. You can hire a team of designers to create the most beautiful graphics for your photo filtering app, but it won't do any good if the whole thing suddenly freezes when a user attempts to process an image!
 
-[Bluto on Ice](https://media.giphy.com/media/mbDvYG4QfMoQo/giphy.gif "Don't freeze up!")
+![Bluto on Ice](https://media.giphy.com/media/mbDvYG4QfMoQo/giphy.gif "Don't freeze up!")
 
 To that end you can use multithreading to run heavy processes off the main thread of a device, thereby ensuring the user interface doesn't stutter and the user experience is maintained.
 
-[Multithreading](https://raw.githubusercontent.com/JGLaferte/Multi-Threading/master/AshycMultiThreadingProject/Img/MultiThreading.gif)
+![Multithreading](https://raw.githubusercontent.com/JGLaferte/Multi-Threading/master/AshycMultiThreadingProject/Img/MultiThreading.gif)
 
 The image above shows three things. First, on the left, you see a representation of a *synchronous* process being run on a single thread of a processor. Each green block, which represents an action, must complete before the next green block can be processed. Second, on the right, is a representation of a synchronous process being run with multithreading. With more threads, multiple green blocks can be processed at the same time and the process on the right completes more quickly.
 
@@ -14,7 +14,8 @@ The third concept illustrated by this animation is the larger picture of these t
 
 In this lab you will create a Flatigram app, which applies filters to images that a user can select from their photo library.
 
-[Flatirgram Demo](https://media.giphy.com/media/l3vQZmh2bjC9QLhxm/giphy.gif)
+![Flatirgram Demo](https://media.giphy.com/media/l3vQZmh2bjC9QLhxm/giphy.gif)
+(The filter in this demo is different than the ones in your project.)
 
 ## Goals
 
@@ -43,7 +44,7 @@ First, to keep your code clean, create an extension for the `ImageViewController
 
 Inside `filterImage(with:)`, you should call on `filter(with:)`, which was added in the `UIImage` extension. This function takes in a `String` — the name of the `CIFilter` to be applied to the image — and returns a filtered `UIImage`. As you can see in the `filtersToApply` property on `ImageViewController`, there are three filters which will need to be applied to the `flatirgram` image. Try to apply all these filters with a `for` loop and see what happens.
 
-[Waiting](https://media.giphy.com/media/3o7TKxOhkp8gO0LXMI/giphy.gif)
+![Waiting](https://media.giphy.com/media/3o7TKxOhkp8gO0LXMI/giphy.gif)
 
 [Hint: Image Filtering](#image-filtering)
 
@@ -61,9 +62,9 @@ But the image looks the same! You may also have noticed that after tapping `Filt
 
 To sort these issues out we're going to need to move the image processing off the main thread. You're going to do this with a subclass of `Operation` and an `OperationQueue`.
 
-### Create `ImageOperation`
+### Create `FilterOperation`
 
-Make a new `.swift` file called `ImageOperations`. Inside, create a new class called `FilterOperation`, which subclasses from `Operation`.
+Make a new `.swift` file called `FilterOperation`. Inside, create a new class called `FilterOperation`, which subclasses from `Operation`.
 
 `Operation`s are single-use containers for tasks. An instance of an `Operation` subclass gives you the opportunity to run code synchronously or asynchronously when used in an `OperationQueue`. These queues are extremely useful when used appropriately, and understanding how to use them is a powerful tool on your toolbelt as a developer.
 
@@ -83,7 +84,7 @@ Next, override the `main()` function of `Operation`. This is where the magic hap
 
 Don't let this seem intimidating! When this operation is run, the `main()` function will get called automatically. As soon as it does, the image will be run through the filter function in the `UIImage` extension.
 
-[Hint: Image Operation](#image-operation)
+[Hint: Filter Operation](#filter-operation)
 
 ### Finish `filterImage(with:)`
 
@@ -107,7 +108,9 @@ This will help illustrate the order of operations taking place.
 
 ### `startProcess()`
 
-Create a new function in the extension for `ImageViewController` named `startProcess()`, which returns nothing. Take the call to `filterImage(with:)` out of `filterButtonTapped(_)` and put it in `startProcess()`. When the `Filter` button is tapped, `startProcess()` should be called.
+Create a new function in the extension for `ImageViewController` named `startProcess()`, which returns nothing. Take the call to `filterImage(with:)` out of `filterButtonTapped(_)` and put it in `startProcess()`.
+
+When the `Filter` button is tapped, the `state` of `flatigram` should be checked. `startProcess()` should be called only if the photo is still unfiltered. Otherwise, make a call to `presentFilteredAlert()`.
 
 `startProcess()` should disable the `filterButton` and `chooseImageButton`, then call the provided `activityIndicator` to start.
 
@@ -141,7 +144,7 @@ for filter in filtersToApply {
 }
 ```
 
-### Image Operation
+### Filter Operation
 
 ```swift
 class FilterOperation: Operation {
