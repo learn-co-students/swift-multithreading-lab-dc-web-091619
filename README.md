@@ -177,11 +177,24 @@ queue.qualityOfService = .userInitiated
 
 ```swift
 func filterImage(with completion: @escaping (Bool) -> ()) {
-        
+    
     let queue = OperationQueue()
     queue.name = "Image Filtration queue"
     queue.maxConcurrentOperationCount = 1
     queue.qualityOfService = .userInitiated
+    
+    var remainingOperations = filtersToApply.count {
+        didSet {
+            if remainingOperations == 0 {
+                print("All operations finished")
+                self.flatigram.state = .filtered
+                completion(true)
+            } else {
+                print("Waiting on \(queue.operationCount) operations to complete")
+            }
+            
+        }
+    }
     
     for filter in filtersToApply {
         
@@ -193,12 +206,7 @@ func filterImage(with completion: @escaping (Bool) -> ()) {
                 return
             }
             
-            if queue.operationCount == 0 {
-                DispatchQueue.main.async(execute: {
-                    self.flatigram.state = .filtered
-                    completion(true)
-                })
-            }
+            remainingOperations -= 1
         }
         
         queue.addOperation(filterer)

@@ -79,6 +79,19 @@ extension ImageViewController {
         queue.maxConcurrentOperationCount = 1
         queue.qualityOfService = .userInitiated
         
+        var remainingOperations = filtersToApply.count {
+            didSet {
+                if remainingOperations == 0 {
+                    print("All operations finished")
+                    self.flatigram.state = .filtered
+                    completion(true)
+                } else {
+                    print("Waiting on \(queue.operationCount) operations to complete")
+                }
+                
+            }
+        }
+        
         for filter in filtersToApply {
             
             let filterer = FilterOperation(flatigram: flatigram, filter: filter)
@@ -89,12 +102,7 @@ extension ImageViewController {
                     return
                 }
                 
-                if queue.operationCount == 0 {
-                    self.flatigram.state = .filtered
-                    completion(true)
-                }
-                
-
+                remainingOperations -= 1
             }
             
             queue.addOperation(filterer)
