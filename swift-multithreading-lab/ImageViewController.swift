@@ -106,7 +106,7 @@ extension ImageViewController {
             }
             
             queue.addOperation(filterer)
-            print("Added FilterOperation with \(filter) to \(queue.name!)")
+            print("Added FilterOperation with \(filter) to \(queue.name)")
         }
     }
     
