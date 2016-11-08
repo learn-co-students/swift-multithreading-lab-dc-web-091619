@@ -149,7 +149,6 @@ for filter in filtersToApply {
 
 ```swift
 class FilterOperation: Operation {
-    
     let flatigram: Flatigram
     let filter: String
     
@@ -159,12 +158,10 @@ class FilterOperation: Operation {
     }
     
     override func main() {
-        
         if let filteredImage = self.flatigram.image?.filter(with: filter) {
             self.flatigram.image = filteredImage
         }
     }
-    
 }
 ```
 
@@ -181,38 +178,19 @@ queue.qualityOfService = .userInitiated
 
 ```swift
 func filterImage(with completion: @escaping (Bool) -> ()) {
-    
     let queue = OperationQueue()
     queue.name = "Image Filtration queue"
     queue.maxConcurrentOperationCount = 1
     queue.qualityOfService = .userInitiated
-    
-    var remainingOperations = filtersToApply.count {
-        didSet {
-            if remainingOperations == 0 {
+    for filter in filtersToApply {
+        let filterer = FilterOperation(flatigram: flatigram, filter: filter)
+        filterer.completionBlock = {
+            if queue.operationCount == 0 {
                 print("All operations finished")
                 self.flatigram.state = .filtered
                 completion(true)
-            } else {
-                print("Waiting on \(queue.operationCount) operations to complete")
             }
-            
         }
-    }
-    
-    for filter in filtersToApply {
-        
-        let filterer = FilterOperation(flatigram: flatigram, filter: filter)
-        filterer.completionBlock = {
-            
-            if filterer.isCancelled {
-                completion(false)
-                return
-            }
-            
-            remainingOperations -= 1
-        }
-        
         queue.addOperation(filterer)
         print("Added FilterOperation with \(filter) to \(queue.name)")
     }
@@ -223,13 +201,10 @@ func filterImage(with completion: @escaping (Bool) -> ()) {
 
 ```swift
 func startProcess() {
-        
     activityIndicator.startAnimating()
     filterButton.isEnabled = false
     chooseImageButton.isEnabled = false
-    
     filterImage { result in
-        
         OperationQueue.main.addOperation {
             result ? print("Image successfully filtered") : print("Image filtering did not complete")
             self.imageView.image = self.flatigram.image
